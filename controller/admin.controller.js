@@ -21,7 +21,6 @@ const uploadFile = async (filename) => {
 
     console.log(`${filename} uploaded to ${bucketName}.`);
 }
-firebas =
 
     exports.SignUp = (request, response) => {
         let a = request.body.name;
@@ -71,7 +70,7 @@ exports.Update = (request, response) => {
 
         }).catch(err => {
             console.log(err);
-            return response.status(500).json({ error: err, message: 'Cannot SignUp' });
+            return response.status(500).json({ error: err, message: 'Cannot Update' });
         });
     }
     else {
@@ -85,7 +84,7 @@ exports.Update = (request, response) => {
 
         }).catch(err => {
             console.log(err);
-            return response.status(500).json({ error: err, message: 'Cannot SignUp' });
+            return response.status(500).json({ error: err, message: 'Cannot Update' });
         });
     }
 }
