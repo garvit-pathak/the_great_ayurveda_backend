@@ -6,6 +6,7 @@ const cors=require('cors');
 const port=process.env.PORT || 8800;
 app.use(cors());
 const adminRouteImport=require('./route/admin.route');
+const userRouteImport=require('./route/user.route');
 
 
 mongoose
@@ -21,6 +22,7 @@ console.log("database conectivity success ");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use('/api/admin/',adminRouteImport);
+app.use('/api/user/',userRouteImport);
 
 app.listen(port,()=>{
     console.log('Server Running');
