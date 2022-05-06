@@ -35,14 +35,11 @@ const diseaseSchema  = new mongoose.Schema({
         type : Schema.Types.ObjectId,
         ref : "categories"
     } ,
-     reviewerDetail :[{
-      type : Schema.Types.ObjectId,
-      ref : "users"
-    }],
-    review : [{
-        type : String,
-    }]
+    reviewerDetail :[{
+        uId:{type:Schema.Types.ObjectId,ref : 'users'},       
+        reviewText:String,      
+      }]
 });
 
 
-module.exports = mongoose.Schema("diseases",diseaseSchema);
+module.exports = mongoose.model("diseases",diseaseSchema);

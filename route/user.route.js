@@ -18,5 +18,6 @@ userRouter.post('/verify',userController.Verify);
 userRouter.get('/verified',userController.IsVerified);
 userRouter.post('/signin',userController.SignIn);
 userRouter.get('/remove',userController.Remove);
+userRouter.get('/view',userController.View);
 
 module.exports=userRouter;
