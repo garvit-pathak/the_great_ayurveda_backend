@@ -29,12 +29,9 @@ const medicineSchema= new mongoose.Schema({
         type : Schema.Types.ObjectId,
         ref : "categories"
     },
-     reviewerDetail :[{
-      type : Schema.Types.ObjectId,
-      ref : "users"
+    reviewerDetail :[{
+      uId:{type:Schema.Types.ObjectId,ref : 'users'},       
+      reviewText:String,      
     }],
-    review : [{
-        type : String,
-    }]
 });
 module.exports = mongoose.model("medicines",medicineSchema);

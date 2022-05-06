@@ -127,3 +127,13 @@ exports.Remove=(request,response)=>{
     })
 }
 
+exports.View=(request,response)=>{
+    userM.find().then(result=>{
+        return response.status(200).json(result);
+    }).catch(err=>{
+        console.log(err);
+        return response.status(500).json({message:'Not getting data'});
+
+    })
+}
+

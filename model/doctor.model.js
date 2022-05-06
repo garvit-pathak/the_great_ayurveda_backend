@@ -66,13 +66,10 @@ const doctorSchema = new mongoose.Schema({
     type : String ,
     required : true 
   },
-  reviewerDetail:[{
-   type : Schema.Types.ObjectId,
-   ref : "users"
- }],
- review : [{
-     type : String,
- }]
+  reviewerDetail :[{
+    uId:{type:Schema.Types.ObjectId,ref : 'users'},       
+    reviewText:String,      
+  }],
   
 });
-module.exports = mongoose.Schema("doctors",doctorSchema);
+module.exports = mongoose.model("doctors",doctorSchema);
