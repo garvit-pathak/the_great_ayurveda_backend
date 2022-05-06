@@ -10,6 +10,7 @@ const userRouteImport=require('./route/user.route');
 const categoryRouteImport=require('./route/category.route');
 const medicineRouteImport=require('./route/medicine.route');
 const cartRouteImport=require('./route/cart.route');
+const queryRouteImport=require('./route/query.route');
 
 
 mongoose
@@ -29,6 +30,7 @@ app.use('/api/user/',userRouteImport);
 app.use('/api/category/',categoryRouteImport);
 app.use('/api/medicine/',medicineRouteImport);
 app.use('/api/cart/',cartRouteImport);
+app.use('/api/query/',queryRouteImport);
 
 app.listen(port,()=>{
     console.log('Server Running');

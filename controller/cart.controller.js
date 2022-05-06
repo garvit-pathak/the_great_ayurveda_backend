@@ -41,3 +41,14 @@ exports.Delete = (request, response) => {
 
     });
 }
+
+exports.RemoveItems = (request, response) => {
+    cartM.updateOne({ userId: request.body.uId},{$pullAll:{medicineList:[{_id:request.body.pId}]}}).then(result => {
+        return response.status(200).json(result);
+
+    }).catch(err => {
+        console.log(err);
+        return response.status(500).json({error:'Not Deleted'});
+
+    });
+}
