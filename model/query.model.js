@@ -10,7 +10,7 @@ const querySchema = new mongoose.Schema({
     },
     status : {
         type : String ,
-        default : pending
+        default : 'pending'
     },
     mobile :{
         type : Number ,

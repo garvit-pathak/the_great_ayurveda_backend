@@ -2,6 +2,7 @@ const userM = require('../model/user.model');
 const bcrypt = require("bcryptjs");
 const fastTwoSms = require('fast-two-sms');
 const path=require('path');
+const jwt=require('jsonwebtoken');
 
 const { Storage } = require('@google-cloud/storage');
 let bucketName = "gs://ayurveda-d6cac.appspot.com"
@@ -103,7 +104,14 @@ exports.SignIn = (request, response) => {
         console.log(b);
         bcrypt.compare(b, encpass, function (err, res) {
             if (result.isVerified && res) {
-                return response.status(201).json(result);
+                const payload={subject:result._id};
+                const token=jwt.sign(payload,'dhdbsjcdsncjdsfjdsjkfskjdsfr');
+                return response.status(201).json(
+                    {
+                        result:result,
+                        token:token
+                    }
+                );
             }
             else {
                 return response.status(500).json({ error: 'Invalid User' });
@@ -136,4 +144,3 @@ exports.View=(request,response)=>{
 
     })
 }
-
