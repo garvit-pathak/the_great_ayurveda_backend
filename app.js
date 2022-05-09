@@ -15,6 +15,8 @@ const queryRouteImport=require('./route/query.route');
 const doctorRouteImport=require('./route/doctor.route');
 =======
 // const diseaseRouteImport= require('./route/disease.route');
+const appointmentRouteImport=require('./route/appointment.route');
+
 
 
 
@@ -40,6 +42,7 @@ app.use('/api/query/',queryRouteImport);
 app.use('/api/doctor',doctorRouteImport);
 =======
 // app.use('/api/disease/',diseaseRouteImport);
+app.use('/api/appointment/',appointmentRouteImport);
 
 
 app.listen(port,()=>{
