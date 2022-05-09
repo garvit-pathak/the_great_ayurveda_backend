@@ -28,8 +28,10 @@ const diseaseSchema  = new mongoose.Schema({
         required : true 
     },
     medicines:[{
-        type : Schema.Types.ObjectId,
-        required : true 
+        mId:{
+            type : Schema.Types.ObjectId,
+            ref : "medicines"
+        }
     }],
     category :{
         type : Schema.Types.ObjectId,
