@@ -11,6 +11,7 @@ const categoryRouteImport=require('./route/category.route');
 const medicineRouteImport=require('./route/medicine.route');
 const cartRouteImport=require('./route/cart.route');
 const queryRouteImport=require('./route/query.route');
+const doctorRouteImport=require('./route/doctor.route');
 
 
 mongoose
@@ -31,6 +32,7 @@ app.use('/api/category/',categoryRouteImport);
 app.use('/api/medicine/',medicineRouteImport);
 app.use('/api/cart/',cartRouteImport);
 app.use('/api/query/',queryRouteImport);
+app.use('/api/doctor',doctorRouteImport);
 
 app.listen(port,()=>{
     console.log('Server Running');
