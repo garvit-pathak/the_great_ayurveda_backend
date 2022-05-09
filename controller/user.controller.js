@@ -67,7 +67,16 @@ exports.SignUp = (request, response) => {
 
 exports.Verify = (request, response) => {
     userM.updateOne({ _id: request.body.id, otp: request.body.otp }, { $set: { isVerified: true } }).then(result => {
+        console.log(result.matchedCount);
+        console.log(result.modifiedCount);
+        if(result.matchedCount && result.modifiedCount){
         return response.status(201).json({ result: result, message: 'SignUp Success' });
+
+        }
+        else{
+        return response.status(403).json({ result: result, Error:'Please Enter valid otp' });
+
+        }
 
     }).catch(err => {
         console.log(err);
