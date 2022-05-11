@@ -3,6 +3,7 @@ const diseaseM=require('../model/disease.model');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
 
+
 let bucketName = "gs://ayurveda-d6cac.appspot.com"
 
 const storage = new Storage({
@@ -24,6 +25,7 @@ const uploadFile = async (filename) => {
 }
 
 exports.Add=(request,response)=>{
+   
     let name= request.body.name;
     let causes= request.body.causes;
     let homeRemedies = request.body.homeRemedies ;
@@ -32,7 +34,7 @@ exports.Add=(request,response)=>{
     let image= 'https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/' + request.file.filename + '?alt=media&token=saved-image';
     let keyword= request.body.keyword ;
     let category= request.body.category;
-     
+  
     diseaseM.create({ name: name, causes: causes, homeRemedies: homeRemedies, yogaLink: yogaLink, yogaThumbnail: yogaThumbnail, image: image, keyword: keyword ,category:category})
     .then(result => {
         uploadFile(

@@ -3,6 +3,7 @@ const diseaseController= require('../controller/disease.controller');
 const diseaseRouter= express.Router();
 const multer=require('multer');
 
+
 const storage=multer.diskStorage({
     destination:'public/images',
     filename:(request,file,cb)=>{
@@ -11,7 +12,8 @@ const storage=multer.diskStorage({
 });
 
 const upload=multer({storage:storage});
-diseaseRouter.post('/add-disease',upload.single('image'),diseaseController.Add);
+diseaseRouter.post('/add-disease',
+                               upload.single('image'),diseaseController.Add);
 diseaseRouter.post('/review',diseaseController.Review);
 diseaseRouter.delete('/remove',diseaseController.Delete);
 diseaseRouter.get('/viewall',diseaseController.ViewAll);
