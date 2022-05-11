@@ -1,5 +1,3 @@
-
-
 const diseaseM=require('../model/disease.model');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
@@ -100,7 +98,7 @@ exports.ViewAll = (request, response) => {
     .populate({ path: "reviewerDetail.uId" })
     .populate({ path: "medicines.mId" })
 
-
+}
 exports.Add=(request,response)=>{
    
     let name= request.body.name;
@@ -121,7 +119,8 @@ exports.Add=(request,response)=>{
     }).catch(err => {
         console.log(err);
         return response.status(500).json({ error: 'Addition not possible' });
-
+    })
+  }
 exports.MedicineAdd = async (request, response) => {
   let mId = request.body.mId;
   let dId = request.body.dId;
