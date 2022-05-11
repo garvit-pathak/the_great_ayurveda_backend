@@ -18,10 +18,8 @@ diseaseRouter.post('/add-disease',
 diseaseRouter.post('/review',diseaseController.Review);
 diseaseRouter.delete('/remove',diseaseController.Delete);
 diseaseRouter.get('/viewall',diseaseController.ViewAll);
-// diseaseRouter.post('/update',upload.single('image'),diseaseController.Update)
-
-
-
+// diseaseRouter.post('/update',upload.single('image'),diseaseController.Update);
+//diseaseRouter.post('/removemedicine',diseaseController.RemoveMedicine);
 
 diseaseRouter.post("/medicines", diseaseController.MedicineAdd);
 
