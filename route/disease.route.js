@@ -1,7 +1,8 @@
-const express = require('express');
-const diseaseController= require('../controller/disease.controller');
-const diseaseRouter= express.Router();
-const multer=require('multer');
+const express = require("express");
+const diseaseController = require("../controller/disease.controller");
+const diseaseRouter = express.Router();
+const multer = require("multer");
+
 
 
 const storage=multer.diskStorage({
@@ -22,5 +23,13 @@ diseaseRouter.get('/viewall',diseaseController.ViewAll);
 
 
 
+diseaseRouter.post("/medicines", diseaseController.MedicineAdd);
 
-module.exports =diseaseRouter;
+
+diseaseRouter.post("/update", upload.single("image"), diseaseController.Update);
+diseaseRouter.post( "/view-particularDisease",diseaseController.ViewParticularDisease);
+diseaseRouter.post("/search-disease", diseaseController.Search);
+diseaseRouter.post("/delete-medicine", diseaseController.deleteOneMedicine);
+
+
+module.exports = diseaseRouter;
