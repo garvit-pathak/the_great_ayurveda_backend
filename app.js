@@ -18,6 +18,7 @@ const diseaseRouteImport= require('./route/disease.route');
 const doctorRouteImport=require('./route/doctor.route');
 
 const appointmentRouteImport=require('./route/appointment.route');
+const orderRouteImport=require('./route/order.route');
 
 
 
@@ -48,6 +49,7 @@ app.use('/api/disease/',diseaseRouteImport);
 app.use('/api/doctor',doctorRouteImport);
 
 app.use('/api/appointment/',appointmentRouteImport);
+app.use('/api/order/',orderRouteImport);
 
 
 
