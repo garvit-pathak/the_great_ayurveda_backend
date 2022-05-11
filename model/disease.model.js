@@ -25,7 +25,8 @@ const diseaseSchema  = new mongoose.Schema({
     },
     keyword :{
         type : String ,
-        required : true 
+        required:true
+        
     },
     medicines:[{
         mId:{
@@ -38,8 +39,12 @@ const diseaseSchema  = new mongoose.Schema({
         ref : "categories"
     } ,
     reviewerDetail :[{
-        uId:{type:Schema.Types.ObjectId,ref : 'users'},       
-        reviewText:String,      
+        uId:{
+            type:Schema.Types.ObjectId,ref : 'users'
+        },       
+        reviewText:{
+            type:String
+        },      
       }]
 });
 

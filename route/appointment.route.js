@@ -7,4 +7,5 @@ appointmentRouter.post('/doctorResponseaccept',appointmentController.DoctorRespo
 appointmentRouter.post('/doctorResponsereject',appointmentController.DoctorResponseReject);
 appointmentRouter.get('/viewappointment',appointmentController.ViewAppointment);
 
+
 module.exports=appointmentRouter;

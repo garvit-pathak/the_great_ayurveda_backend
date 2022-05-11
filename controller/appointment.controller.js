@@ -1,6 +1,7 @@
 const appointmentM = require('../model/appointment.model');
 const fastTwoSms = require('fast-two-sms');
 
+
 exports.BookAppointment = (request, response) => {
     let patientName = request.body.patientName;
     let age = request.body.age;
@@ -27,12 +28,11 @@ exports.BookAppointment = (request, response) => {
         }).catch(err => {
             console.log(err);
         });
-        return response.status(201).json(result);
-    }).catch(err => {
-        console.log(err);
-        return response.status(500).json({ error: 'Not saved' });
-    });
-}
+   
+    
+    
+
+
 
 exports.DoctorResponseAccept = (request, response) => {
     appointmentM.updateOne({_id:request.body.aId},{$set:{apointmentStatus:'Accepted'}}).then(result=>{
