@@ -1,6 +1,7 @@
 const medicineM = require('../model/medicine.model');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
+
 let bucketName = "gs://ayurveda-d6cac.appspot.com"
 
 const storage = new Storage({
@@ -22,6 +23,7 @@ const uploadFile = async (filename) => {
 }
 
 exports.Add = (request, response) => {
+   
     let a = request.body.name;
     let b = request.body.price;
     let c = request.body.description;

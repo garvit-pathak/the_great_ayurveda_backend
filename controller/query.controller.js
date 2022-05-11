@@ -12,6 +12,7 @@ const transporter=nodemailer.createTransport({
 
 
 exports.SendQuery=(request,response)=>{
+  
     let a=request.body.email;
     let b=request.body.query;
     let d=request.body.mobile;
