@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors=require('cors');
-const port=process.env.PORT || 8800;
+const port=process.env.PORT || 8801;
 app.use(cors());
 const adminRouteImport=require('./route/admin.route');
 const userRouteImport=require('./route/user.route');
