@@ -16,7 +16,7 @@ const diseaseSchema  = new mongoose.Schema({
     yogaLink:{
         type : String 
     },
-    precaution:{
+      precaution :{
         type : String 
     },
     image :{
