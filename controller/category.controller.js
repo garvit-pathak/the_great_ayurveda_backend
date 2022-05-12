@@ -1,7 +1,9 @@
 const categoryM=require('../model/category.model');
 
 exports.Add=(request,response)=>{
+    
     let a=request.body.name;
+  
     categoryM.create({name:a}).then(result=>{
         return response.status(500).json({result:result,message:'Added'});
         

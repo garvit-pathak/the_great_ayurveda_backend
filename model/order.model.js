@@ -2,12 +2,17 @@ const mongoose =  require('mongoose');
 const Schema =  mongoose.Schema;
 const orderSchema = new mongoose.Schema({
     userId : {
-        type : Schema.Types.ObjectId
+        type : Schema.Types.ObjectId,
+        ref:'users'
     },
     medicineList :[{
         medicines:{
             type :  Schema.Types.ObjectId,
             ref : "medicines"
+        },
+        price:{
+            type:Number,
+            required:true
         },
         total : {
             type : Number,
@@ -19,8 +24,8 @@ const orderSchema = new mongoose.Schema({
         }
     }],
     date:{
-        type : Date,
-        default : Date.now 
+        type : String,
+        required:true 
     },
     mobile:{
         type :  Number ,
@@ -30,9 +35,13 @@ const orderSchema = new mongoose.Schema({
         type : String ,
         required : true 
     },
-    dilevery :{
+    delivery :{
         type :  String ,
         default : "pending"
+    },
+    orderStatus:{
+        type:String,
+        default: "unordered"
     },
     paymentId :{
         type :  String ,

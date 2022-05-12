@@ -1,45 +1,55 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema ;
-const diseaseSchema  = new mongoose.Schema({
-    name :{
-        type : String,
-        required:true  
+const Schema = mongoose.Schema;
+const diseaseSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
     },
-    causes:{
-        type : String ,
-        required : true 
+    causes: {
+        type: String,
+        required: true
     },
-    homeRemedies :{
-        type : String ,
-    
+    homeRemedies: {
+        type: String,
+
     },
-    yogaLink:{
-        type : String 
+    yogaLink: {
+        type: String
     },
+
       precaution :{
         type : String 
+
     },
-    image :{
-        type : String ,
-        required : true 
+    image: {
+        type: String,
+        required: true
     },
-    keyword :{
-        type : String ,
-        required : true 
+    keyword: {
+        type: String,
+        required: true
+
     },
-    medicines:[{
-        type : Schema.Types.ObjectId,
-        required : true 
+    medicines: [{
+        mId: {
+            type: Schema.Types.ObjectId,
+            ref: "medicines"
+        }
     }],
-    category :{
-        type : Schema.Types.ObjectId,
-        ref : "categories"
-    } ,
-    reviewerDetail :[{
-        uId:{type:Schema.Types.ObjectId,ref : 'users'},       
-        reviewText:String,      
-      }]
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: "categories"
+    },
+    reviewerDetail: [{
+        uId: {
+            type: Schema.Types.ObjectId,
+            ref: 'users'
+        },
+        reviewText: {
+            type: String
+        },
+    }]
 });
 
 
-module.exports = mongoose.model("diseases",diseaseSchema);
+module.exports = mongoose.model("diseases", diseaseSchema);
