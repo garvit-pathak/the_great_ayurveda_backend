@@ -133,3 +133,15 @@ exports.Update = (request, response) => {
         });
     }
 }
+
+exports.viewByKeyword = (request, response) => {
+    medicineM.find({ keyword: { $regex: request.body.keyword, $options: "i" } })
+        .then(result => {
+            console.log(result);
+            return response.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            return response.status(500).json({ message: "Not found" });
+        });
+}
