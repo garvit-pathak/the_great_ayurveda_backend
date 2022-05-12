@@ -1,4 +1,5 @@
 const orderM = require('../model/order.model');
+const cartM = require('../model/cart.model');
 
 exports.PlaceOrder = (request, response) => {
     let userId = request.body.userId;
@@ -17,7 +18,21 @@ exports.PlaceOrder = (request, response) => {
     let currentDate = dd + '/' + mm + '/' + yy;
     console.log(currentDate);
     orderM.create({ userId: userId, date: currentDate, medicineList: { medicines: medicines, price: price, total: total, quantity: quantity }, mobile: mobile, address: address, paymentId: paymentId, orderStatus: 'ordered' }).then(result => {
-        return response.status(200).json({ result: result, });
+        cartM.deleteOne({ userId: userId }).then(resultUpdate => {
+            console.log(resultUpdate);
+            if (resultUpdate.deletedCount) {
+                
+                return response.status(200).json({ result: result ,message:'Order Placed and Cart Product released'});
+
+            }
+            else {
+                return response.status(200).json({ error: 'Not Updated' });
+            }
+        }).catch(errUpdate => {
+            console.log(errUpdate);
+            return response.status(500).json({ error: 'Internal Error' });
+        });
+
     }).catch(err => {
         console.log(err);
         return response.status(500).json({ error: error });
@@ -35,9 +50,15 @@ exports.ViewPlacedOrder = (request, response) => {
 }
 
 exports.DeliveryStatusUpdate = (request, response) => {
-
+    console.log(request.body);
     orderM.updateOne({ _id: request.body.oId }, { delivery: 'delivered' }).then(result => {
-        return response.status(200).json(result);
+        if (result.modifiedCount && result.matchedCount) {
+            return response.status(200).json({ result: result, status: 'Order Delivered' });
+        }
+        else {
+            return response.status(403).json({ error: 'Not Updated or already updated' });
+
+        }
     }).catch(err => {
         console.log(err);
         return response.status(500).json({ error: 'Cannot update your changes' });
@@ -68,13 +89,13 @@ exports.CancelOrder = (request, response) => {
     orderM.findOne({ orderStatus: 'ordered', userId: request.body.userId }).then(result => {
         if (result.delivery == 'pending') {
             console.log('inside if');
-            orderM.deleteOne({userId:request.body.userId}).then(result=>{
+            orderM.deleteOne({ userId: request.body.userId }).then(result => {
                 return response.status(200).json({ message: 'Order Deleted' });
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err);
-                return response.status(404).json({error:'cannot canceled'});
+                return response.status(404).json({ error: 'cannot canceled' });
             });
-            
+
         }
         else {
             return response.status(403).json({ error: 'Cannot cancel order' });
