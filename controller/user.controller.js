@@ -25,6 +25,7 @@ const uploadFile = async (filename) => {
     console.log(`${filename} uploaded to ${bucketName}.`);
 }
 exports.SignUp = (request, response) => {
+    console.log(request.file)
 
     let a = request.body.name;
     let b = request.body.email;
