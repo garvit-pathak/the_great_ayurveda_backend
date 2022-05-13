@@ -45,7 +45,7 @@ exports.addDoctor = (request, response) => {
                 degree: request.body.degree,
                 category: request.body.category,
                 otp: randomNumber,
-                specialities: request.body.specialities,
+                // specialities: request.body.specialities,
                 clinicName: request.body.clinicName,
                 clinicAddress: request.body.clinicAddress,
                 clinicNo: request.body.clinicNo,
@@ -207,12 +207,12 @@ exports.updateDoctor = (request, response) => {
                 degree: request.body.degree,
                 category: request.body.category,
                 otp: request.body.otp,
-                specialities: request.body.specialities,
+                // specialities: request.body.specialities,
                 clinicName: request.body.clinicName,
                 clinicAddress: request.body.clinicAddress,
                 clinicNo: request.body.clinicNo,
                 clinicTiming: request.body.clinicTiming,
-                keyword: request.body.keyword
+                // keyword: request.body.keyword
             }
         })
         .then((result) => {

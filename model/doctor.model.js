@@ -45,10 +45,10 @@ const doctorSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    specialities: {
-        type: String,
-        required: true
-    },
+    // specialities: {
+    //     type: String,
+    //     required: true
+    // },
     clinicName: {
         type: String,
         required: true
@@ -65,10 +65,10 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    keyword: {
-        type: String,
-        required: true
-    },
+    // keyword: {
+    //     type: String,
+    //     required: true
+    // },
     reviewerDetail: [{
         uId: { type: Schema.Types.ObjectId, ref: 'users' },
         reviewText: String,

@@ -51,5 +51,5 @@ const diseaseSchema = new mongoose.Schema({
     }]
 });
 
-
+//jaya
 module.exports = mongoose.model("diseases", diseaseSchema);
