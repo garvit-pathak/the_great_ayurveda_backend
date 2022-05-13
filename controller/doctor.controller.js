@@ -50,7 +50,7 @@ exports.addDoctor = (request, response) => {
                 clinicAddress: request.body.clinicAddress,
                 clinicNo: request.body.clinicNo,
                 clinicTiming: request.body.clinicTiming,
-                keyword: request.body.keyword
+                // keyword: request.body.keyword
             }).then(result => {
                 uploadFile(
                     path.join(__dirname, "../", "public/images/") + request.file.filename

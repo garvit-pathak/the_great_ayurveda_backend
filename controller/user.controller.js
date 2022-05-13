@@ -85,6 +85,25 @@ exports.Verify = (request, response) => {
 
 }
 
+// exports.Verify = (request, response) => {
+//     console.log(request.body);
+//     userM.updateOne({ _id: request.body.id, otp: request.body.otp }, { $set: { isverfied: true } }).then(result => {
+//         console.log(result);
+//         if (result.matchedCount && result.modifiedCount) {
+//             return response.status(201).json({ result: result, message: 'SignUp Success' });
+
+//         } else {
+//             return response.status(403).json({ result: result, Error: 'Please Enter valid otp' });
+
+//         }
+//     }).catch(err => {
+//         console.log(err);
+//         return response.status(201).json({ error: err });
+//     })
+
+// }
+
+
 exports.IsVerified = (request, response) => {
     userM.findOne({ _id: request.body.id }).then(result => {
         console.log(result);
@@ -115,7 +134,7 @@ exports.SignIn = (request, response) => {
             if (result.isVerified && res) {
                 const payload = { subject: result._id };
                 const token = jwt.sign(payload, 'dhdbsjcdsncjdsfjdsjkfskjdsfr');
-                return response.status(201).json(
+                return response.status(200).json(
                     {
                         result: result,
                         token: token

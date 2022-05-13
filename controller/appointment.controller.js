@@ -23,8 +23,9 @@ exports.BookAppointment = (request, response) => {
             numbers: [mobile]
         }
         fastTwoSms.sendMessage(options).then(result => {
-            return response.status(200).json(result);
             console.log(result);
+            return response.status(200).json(result);
+            
 
         }).catch(err => {
             console.log(err);
