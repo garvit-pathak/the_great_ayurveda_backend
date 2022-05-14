@@ -39,7 +39,7 @@ exports.SignUp = (request, response) => {
         uploadFile(
             path.join(__dirname, "../", "public/images/") + request.file.filename
         );
-        return response.status(500).json(result);
+        return response.status(200).json(result);
 
     }).catch(err => {
         console.log(err);
@@ -55,7 +55,7 @@ exports.SignIn = (request, response) => {
     adminM.findOne({ email: b, password: c }).then(result => {
         const payload = { subject: result._id };
         const token = jwt.sign(payload, 'ndajkfdskjvdsjfcadsfff');
-        return response.status(500).json({
+        return response.status(200).json({
             result: result,
             token: token
         });
@@ -78,7 +78,7 @@ exports.Update = (request, response) => {
             uploadFile(
                 path.join(__dirname, "../", "public/images/") + request.file.filename
             );
-            return response.status(500).json(result);
+            return response.status(200).json(result);
 
         }).catch(err => {
             console.log(err);
