@@ -1,7 +1,7 @@
 const medicineM = require('../model/medicine.model');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
-const csv=require('csvtojson');
+// const csv=require('csvtojson');
 
 let bucketName = "gs://ayurveda-d6cac.appspot.com"
 
@@ -35,7 +35,7 @@ exports.Add = (request, response) => {
     let precaution = request.body.precaution;
     let ingredients = request.body.ingredients;
     let uses = request.body.uses;
-
+    let SideEffect = request.body.sideEffect;
     medicineM.create({
         name: a,
         price: b,
@@ -46,7 +46,8 @@ exports.Add = (request, response) => {
         category: g,
         precaution: precaution,
         ingredients: ingredients,
-        uses: uses
+        uses: uses,
+        sideEffect:SideEffect
     }).then(result => {
         uploadFile(
             path.join(__dirname, "../", "public/images/") + request.file.filename

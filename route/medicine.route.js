@@ -22,5 +22,5 @@ medicineRouter.get('/viewbycat',medicineControl.ViewByCat);
 medicineRouter.get('/delete',medicineControl.Delete);
 medicineRouter.post('/update',upload.single('image'),medicineControl.Update);
 medicineRouter.post('/search',medicineControl.viewByKeyword);
-medicineRouter.post('/excel',medicineControl.ExcelSave);
+// medicineRouter.post('/excel',medicineControl.ExcelSave);
 module.exports=medicineRouter;
