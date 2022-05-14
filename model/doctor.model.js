@@ -45,10 +45,9 @@ const doctorSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    // specialities: {
-    //     type: String,
-    //     required: true
-    // },
+    gender: {
+        type: String,
+    },
     clinicName: {
         type: String,
         required: true
