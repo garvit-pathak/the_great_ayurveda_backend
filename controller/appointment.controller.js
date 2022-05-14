@@ -9,14 +9,15 @@ exports.BookAppointment = (request, response) => {
     let mobile = request.body.mobile;
     let userId = request.body.userId;
     let doctorId = request.body.doctorId;
-    let date = new Date();
-    let b = date.getDate();
-    let c = date.getMonth() + 1;
-    let d = date.getFullYear();
-    let currentDate = b + '/' + c + '/' + d
-    console.log(currentDate);
+    let date = request.body.date;
+    // let date = new Date();
+    // let b = date.getDate();
+    // let c = date.getMonth() + 1;
+    // let d = date.getFullYear();
+    // let currentDate = b + '/' + c + '/' + d
+    // console.log(currentDate);
 
-    appointmentM.create({ patientName: patientName, age: age, disease: disease, mobile: mobile, userId: userId, doctor: doctorId, date: currentDate }).then(result => {
+    appointmentM.create({ patientName: patientName, age: age, disease: disease, mobile: mobile, userId: userId, doctor: doctorId, date: date }).then(result => {
         var options = {
             authorization: "FtQi9Z8SXlC5rq1VdNjsKREuO7wWTmnc6zvbI0eJHYLfohMAUxL5mucn6aw1PpNosir4G8gyJzRFEeYj",
             message: 'Dear customer we have received your appointment request Date:' + currentDate + ' soon doctor will contact you , Team:The Great Ayurveda',
