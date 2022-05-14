@@ -9,7 +9,7 @@ const storage = new Storage({
     keyFilename: "serviceFirebaseStorage.json"
 });
 
-const uploadFile = async (filename) => {
+const uploadFile = async(filename) => {
 
     await storage.bucket(bucketName).upload(filename, {
         gzip: true,
@@ -24,7 +24,7 @@ const uploadFile = async (filename) => {
 }
 
 exports.Add = (request, response) => {
-   
+
     let a = request.body.name;
     let b = request.body.price;
     let c = request.body.description;
@@ -32,8 +32,22 @@ exports.Add = (request, response) => {
     let e = 'https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/' + request.file.filename + '?alt=media&token=medicine-image';
     let f = request.body.keyword;
     let g = request.body.category;
+    let precaution = request.body.precaution;
+    let ingredients = request.body.ingredients;
+    let uses = request.body.uses;
 
-    medicineM.create({ name: a, price: b, description: c, stock: d, image: e, keyword: f, category: g }).then(result => {
+    medicineM.create({
+        name: a,
+        price: b,
+        description: c,
+        stock: d,
+        image: e,
+        keyword: f,
+        category: g,
+        precaution: precaution,
+        ingredients: ingredients,
+        uses: uses
+    }).then(result => {
         uploadFile(
             path.join(__dirname, "../", "public/images/") + request.file.filename
         );
@@ -44,7 +58,7 @@ exports.Add = (request, response) => {
     });
 }
 
-exports.Review = async (request, response) => {
+exports.Review = async(request, response) => {
     console.log(request.body);
     let uId = request.body.uId;
     let pId = request.body.pId;
@@ -109,7 +123,23 @@ exports.Update = (request, response) => {
         let e = 'https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/' + request.file.filename + '?alt=media&token=medicine-image';
         let f = request.body.keyword;
         let g = request.body.category;
-        medicineM.updateOne({ _id: request.body.pId }, { $set: { name: a, price: b, description: c, stock: d, image: e, keyword: f, catgory: g } }).then(result => {
+        let precaution = request.body.precaution;
+        let ingredients = request.body.ingredients;
+        let uses = request.body.uses;
+        medicineM.updateOne({ _id: request.body.pId }, {
+            $set: {
+                name: a,
+                price: b,
+                description: c,
+                stock: d,
+                image: e,
+                keyword: f,
+                catgory: g,
+                precaution: precaution,
+                ingredients: ingredients,
+                uses: uses
+            }
+        }).then(result => {
             uploadFile(
                 path.join(__dirname, "../", "public/images/") + request.file.filename
             );
@@ -118,15 +148,29 @@ exports.Update = (request, response) => {
             console.log(err);
             return response.status(500).json({ error: 'Cannot Update' });
         });
-    }
-    else{
+    } else {
         let a = request.body.name;
         let b = request.body.price;
         let c = request.body.description;
         let d = request.body.stock;
         let f = request.body.keyword;
         let g = request.body.category;
-        medicineM.updateOne({ _id: request.body.pId }, { $set: { name: a, price: b, description: c, stock: d, keyword: f, catgory: g } }).then(result => {
+        let precaution = request.body.precaution;
+        let ingredients = request.body.ingredients;
+        let uses = request.body.uses;
+        medicineM.updateOne({ _id: request.body.pId }, {
+            $set: {
+                name: a,
+                price: b,
+                description: c,
+                stock: d,
+                keyword: f,
+                catgory: g,
+                precaution: precaution,
+                ingredients: ingredients,
+                uses: uses
+            }
+        }).then(result => {
             return response.status(200).json(result);
         }).catch(err => {
             console.log(err);

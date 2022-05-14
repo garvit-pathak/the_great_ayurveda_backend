@@ -45,7 +45,7 @@ exports.addDoctor = (request, response) => {
                 degree: request.body.degree,
                 category: request.body.category,
                 otp: randomNumber,
-                // specialities: request.body.specialities,
+                gender: request.body.gender,
                 clinicName: request.body.clinicName,
                 clinicAddress: request.body.clinicAddress,
                 clinicNo: request.body.clinicNo,
