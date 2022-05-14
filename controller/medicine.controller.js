@@ -1,6 +1,7 @@
 const medicineM = require('../model/medicine.model');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
+const csv=require('csvtojson');
 
 let bucketName = "gs://ayurveda-d6cac.appspot.com"
 
@@ -143,5 +144,23 @@ exports.viewByKeyword = (request, response) => {
         .catch(err => {
             console.log(err);
             return response.status(500).json({ message: "Not found" });
+        });
+}
+
+exports.ExcelSave=(request,res)=>{
+    const csvFilePath = 'hello.csv';
+    csv()
+        .fromFile(csvFilePath)
+        .then((jsonObj) => {
+
+            stored = jsonObj;
+            //console.log(stored);
+            medicineM.create(stored).then(result => {
+                console.log(result);
+                return res.status(201).json(result);
+            }).catch(err => {
+                console.log(err);
+                return res.status(500).json({ error: 'Not save' });
+            });
         });
 }

@@ -19,7 +19,7 @@ const medicineSchema= new mongoose.Schema({
     },
     image :{
         type : String ,
-        required  :true 
+        
     },
     keyword :{
         type: String ,
