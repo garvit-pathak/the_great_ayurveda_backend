@@ -26,8 +26,8 @@ const doctorSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  exprience: {
-    type: Number,
+  experience: {
+    type: String,
     required: true,
   },
   degree: {
@@ -58,7 +58,7 @@ const doctorSchema = new mongoose.Schema({
   },
   clinicNo: {
     type: Number,
-    required: true,
+    
   },
   clinicTiming: {
     type: String,
