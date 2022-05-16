@@ -26,7 +26,7 @@ exports.BookAppointment = (request, response) => {
       doctor: doctorId,
       date: currentDate,
     })
-    .then((result) => {
+    .then((result1) => {
       var options = {
         authorization:
           "FtQi9Z8SXlC5rq1VdNjsKREuO7wWTmnc6zvbI0eJHYLfohMAUxL5mucn6aw1PpNosir4G8gyJzRFEeYj",
@@ -40,7 +40,7 @@ exports.BookAppointment = (request, response) => {
         .sendMessage(options)
         .then((result) => {
           console.log(result);
-          return response.status(200).json(result);
+          return response.status(200).json(result1);
         })
         .catch((err) => {
           console.log(err);
