@@ -1,30 +1,30 @@
 const categoryM = require("../model/category.model");
 
-exports.Add = (request, response) => {
-  let a = request.body.name;
 
-  categoryM
-    .create({ name: a })
-    .then((result) => {
-      return response.status(200).json(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      return response.status(500).json({ error: "Not Add" });
+exports.Add=(request,response)=>{
+    
+    let a=request.body.name;
+  
+    categoryM.create({name:a}).then(result=>{
+        return response.status(200).json(result);
+        
+    }).catch(err=>{
+        console.log(err);
+        return response.status(500).json({error:'Not Add'});
     });
-};
+}
 
-exports.View = (request, response) => {
-  categoryM
-    .find()
-    .then((result) => {
-      return response.status(200).json(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      return response.status(500).json({ error: "Not Find" });
+exports.View=(request,response)=>{
+    
+    categoryM.find().then(result=>{
+        return response.status(200).json(result);
+        
+    }).catch(err=>{
+        console.log(err);
+        return response.status(500).json({error:'Not Find'});
     });
-};
+}
+
 
 exports.ViewOne = (request, response) => {
   let a = request.body.id;
