@@ -1,17 +1,16 @@
-const express =require('express');
-const medicineRouter=express.Router();
-const medicineControl=require('../controller/medicine.controller');
-const multer=require('multer');
+const express = require("express");
+const medicineRouter = express.Router();
+const medicineControl = require("../controller/medicine.controller");
+const multer = require("multer");
 
-
-const storage=multer.diskStorage({
-    destination:'public/images',
-    filename:(request,file,cb)=>{
-        cb(null,Date.now()+'_'+file.originalname);
-    }
+const storage = multer.diskStorage({
+  destination: "public/images",
+  filename: (request, file, cb) => {
+    cb(null, Date.now() + "_" + file.originalname);
+  },
 });
 
-const upload=multer({storage:storage});
+const upload = multer({ storage: storage });
 
 medicineRouter.post('/add',
                     upload.single('image'),medicineControl.Add);
@@ -24,3 +23,4 @@ medicineRouter.post('/update',upload.single('image'),medicineControl.Update);
 medicineRouter.post('/search',medicineControl.viewByKeyword);
 medicineRouter.post('/excel',medicineControl.ExcelSave);
 module.exports=medicineRouter;
+
