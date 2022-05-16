@@ -17,10 +17,10 @@ medicineRouter.post('/add',
                     upload.single('image'),medicineControl.Add);
 medicineRouter.post('/review',medicineControl.Review);
 medicineRouter.get('/viewall',medicineControl.ViewAll);
-medicineRouter.get('/viewbypro',medicineControl.ViewByProduct);
-medicineRouter.get('/viewbycat',medicineControl.ViewByCat);
-medicineRouter.get('/delete',medicineControl.Delete);
+medicineRouter.post('/viewbypro',medicineControl.ViewByProduct);
+medicineRouter.post('/viewbycat',medicineControl.ViewByCat);
+medicineRouter.post('/delete',medicineControl.Delete);
 medicineRouter.post('/update',upload.single('image'),medicineControl.Update);
 medicineRouter.post('/search',medicineControl.viewByKeyword);
-// medicineRouter.post('/excel',medicineControl.ExcelSave);
+medicineRouter.post('/excel',medicineControl.ExcelSave);
 module.exports=medicineRouter;

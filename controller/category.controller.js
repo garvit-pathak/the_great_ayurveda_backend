@@ -10,7 +10,7 @@ exports.Add=(request,response)=>{
     }).catch(err=>{
         console.log(err);
         return response.status(500).json({error:'Not Add'});
-    })
+    });
 }
 
 exports.View=(request,response)=>{
@@ -21,7 +21,7 @@ exports.View=(request,response)=>{
     }).catch(err=>{
         console.log(err);
         return response.status(500).json({error:'Not Find'});
-    })
+    });
 }
 
 exports.ViewOne=(request,response)=>{
