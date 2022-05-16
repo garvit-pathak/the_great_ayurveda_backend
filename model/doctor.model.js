@@ -24,7 +24,7 @@ const doctorSchema = new mongoose.Schema({
   },
   isApproved: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   exprience: {
     type: Number,
@@ -43,7 +43,7 @@ const doctorSchema = new mongoose.Schema({
   },
   isverfied: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   gender: {
     type: String,
