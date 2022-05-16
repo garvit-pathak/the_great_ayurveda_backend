@@ -15,7 +15,7 @@ const upload = multer({ storage: storage });
 medicineRouter.post("/add", upload.single("image"), medicineControl.Add);
 medicineRouter.post("/review", medicineControl.Review);
 medicineRouter.get("/viewall", medicineControl.ViewAll);
-medicineRouter.get("/viewbypro", medicineControl.ViewByProduct);
+medicineRouter.post("/viewbypro", medicineControl.ViewByProduct);
 medicineRouter.get("/viewbycat", medicineControl.ViewByCat);
 medicineRouter.get("/delete", medicineControl.Delete);
 medicineRouter.post("/update", upload.single("image"), medicineControl.Update);
