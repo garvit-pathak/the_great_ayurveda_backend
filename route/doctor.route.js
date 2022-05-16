@@ -28,4 +28,6 @@ doctorRouter.post(
   doctorController.updateDoctor
 );
 
+doctorRouter.post("/excel",doctorController.ExcelUpload);
+
 module.exports = doctorRouter;

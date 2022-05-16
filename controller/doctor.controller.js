@@ -5,7 +5,8 @@ const { Storage } = require("@google-cloud/storage");
 const requests = require("request");
 const fastTwoSms = require("fast-two-sms");
 const jwt = require("jsonwebtoken");
-
+const csv=require('csvtojson');
+let storedObj;
 let bucketName = "gs://ayurveda-d6cac.appspot.com";
 
 const storage = new Storage({
@@ -284,3 +285,16 @@ exports.signin = (request, response) => {
       return response.status(500).json({ message: "error" });
     });
 };
+
+exports.ExcelUpload=(request,response)=>{
+  const filePath='doctorExcel.csv';
+  csv().fromFile(filePath).then(jsonObj=>{
+    storedObj=jsonObj;
+    doctorM.create(storedObj).then(result=>{
+      return response.status(201).json(result);
+    }).catch(err=>{
+      console.log(err);
+      return response.status(500).json({error:'Cannot Upload ExcelSheet'});
+    })
+  });
+}
