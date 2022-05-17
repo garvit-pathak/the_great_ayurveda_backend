@@ -223,7 +223,7 @@ exports.viewByKeyword = (request, response) => {
 
 
 exports.ExcelSave=(request,res)=>{
-    const csvFilePath = 'medicineFinal3.csv';
+    const csvFilePath = 'medicineExcel2.csv';
 
     csv()
         .fromFile(csvFilePath)

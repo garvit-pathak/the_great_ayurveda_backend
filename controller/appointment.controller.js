@@ -1,5 +1,9 @@
 const appointmentM = require("../model/appointment.model");
-const fastTwoSms = require("fast-two-sms");
+require('dotenv').config();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken);
 
 exports.BookAppointment = (request, response) => {
   let patientName = request.body.patientName;
@@ -27,25 +31,16 @@ exports.BookAppointment = (request, response) => {
       date: currentDate,
     })
     .then((result1) => {
-      var options = {
-        authorization:
-          "FtQi9Z8SXlC5rq1VdNjsKREuO7wWTmnc6zvbI0eJHYLfohMAUxL5mucn6aw1PpNosir4G8gyJzRFEeYj",
-        message:
-          "Dear customer we have received your appointment request Date:" +
-          currentDate +
-          " soon doctor will contact you , Team:The Great Ayurveda",
-        numbers: [mobile],
-      };
-      fastTwoSms
-        .sendMessage(options)
-        .then((result) => {
-          console.log(result);
-          return response.status(200).json(result1);
+      const client = require('twilio')(accountSid, authToken);
+      client.messages
+        .create({
+          body: "Hello " +a+ " your request for appointment has been The Great Ayurveda team will soon contact you "+currentDate,
+          from: +16105802420,
+          to: +91+d
         })
-        .catch((err) => {
+        .then(message => console.log(message.sid)).catch(err => {
           console.log(err);
-          return response.status(500).json({ message: "error" });
-        });
+        })
     });
 };
 

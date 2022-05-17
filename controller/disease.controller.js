@@ -3,6 +3,10 @@ const path = require("path");
 const { Storage } = require("@google-cloud/storage");
 const { response } = require("express");
 const requests = require("request");
+const csv=require('csvtojson');
+
+let storedObj;
+
 let bucketName = "gs://ayurveda-d6cac.appspot.com";
 
 const storage = new Storage({
@@ -215,4 +219,20 @@ exports.Search = (request, response) => {
       console.log(err);
       return response.status(500).json(err);
     });
+};
+
+exports.ExcelUpload=(request,response)=>{
+  const filePath='diseaseExcel.csv';
+  csv().fromFile(filePath).then(jsonObj=>{
+    storedObj=jsonObj;
+    diseaseM.create(storedObj).then(result=>{
+      return response.status(200).json(result);
+
+    }).catch(err=>{
+      console.log(err);
+      return response.status(500).json({error:'Cannot Upload'});
+    })
+  }).catch(err=>{
+    console.log(err);
+  })
 };

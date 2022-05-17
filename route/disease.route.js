@@ -18,7 +18,7 @@ diseaseRouter.post(
 );
 diseaseRouter.post("/review", diseaseController.Review);
 diseaseRouter.post("/medicines", diseaseController.MedicineAdd);
-diseaseRouter.delete("/remove", diseaseController.Delete);
+diseaseRouter.post("/remove", diseaseController.Delete);
 diseaseRouter.get("/viewall", diseaseController.ViewAll);
 diseaseRouter.post("/update", upload.single("image"), diseaseController.Update);
 diseaseRouter.post(
@@ -27,5 +27,5 @@ diseaseRouter.post(
 );
 diseaseRouter.post("/search-disease", diseaseController.Search);
 diseaseRouter.post("/delete-medicine", diseaseController.deleteOneMedicine);
-
+diseaseRouter.post("/excel", diseaseController.ExcelUpload);
 module.exports = diseaseRouter;
