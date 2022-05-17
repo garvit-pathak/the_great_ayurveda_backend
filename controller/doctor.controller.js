@@ -3,9 +3,16 @@ const path = require("path");
 const bcrypt = require("bcryptjs");
 const { Storage } = require("@google-cloud/storage");
 const requests = require("request");
-const fastTwoSms = require("fast-two-sms");
 const jwt = require("jsonwebtoken");
 const csv=require('csvtojson');
+
+require('dotenv').config();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken);
+
+
 let storedObj;
 let bucketName = "gs://ayurveda-d6cac.appspot.com";
 
@@ -64,22 +71,15 @@ exports.addDoctor = (request, response) => {
           console.log(err);
           return response.status(500).json({ error: "Cannot Added" });
         });
-      var options = {
-        authorization:
-          "FtQi9Z8SXlC5rq1VdNjsKREuO7wWTmnc6zvbI0eJHYLfohMAUxL5mucn6aw1PpNosir4G8gyJzRFEeYj",
-        message:
-          "Your One Time OTP for signup in The Great Ayurveda is " +
-          randomNumber,
-        numbers: [m],
-      };
-      fastTwoSms
-        .sendMessage(options)
-        .then((result) => {
-          console.log(result);
+        client.messages
+        .create({
+          body: "Hello " +a+ " your otp for The Great Ayurveda is"+" "+randomNumber,
+          from: +16105802420,
+          to: +91+d
         })
-        .catch((err) => {
+        .then(message => console.log(message.sid)).catch(err => {
           console.log(err);
-        });
+        })
     })
     .catch((err) => {
       console.log(err);
