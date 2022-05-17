@@ -11,15 +11,16 @@ const diseaseSchema = new mongoose.Schema({
     },
     homeRemedies: {
         type: String,
-
+        required: true,
     },
     yogaLink: {
-        type: String
+        type: String,
+        required: true,
     },
 
       precaution :{
-        type : String 
-
+        type : String, 
+        required: true,
     },
     image: {
         type: String,
@@ -51,5 +52,4 @@ const diseaseSchema = new mongoose.Schema({
     }]
 });
 
-//jaya
 module.exports = mongoose.model("diseases", diseaseSchema);

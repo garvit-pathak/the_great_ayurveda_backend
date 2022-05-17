@@ -11,9 +11,11 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+
   },
   mobile: {
     type: Number,
+    required: true,
   },
   image: {
     type: String,
@@ -21,10 +23,10 @@ const userSchema = new mongoose.Schema({
   },
   otp: {
     type: String,
+    required: true,
   },
   isVerified: {
     type: Boolean,
-
     default: false,
   },
 });

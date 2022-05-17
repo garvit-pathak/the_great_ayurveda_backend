@@ -47,6 +47,7 @@ const doctorSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
+    required: true,
   },
   clinicName: {
     type: String,
@@ -58,7 +59,7 @@ const doctorSchema = new mongoose.Schema({
   },
   clinicNo: {
     type: Number,
-    
+    required: true,
   },
   clinicTiming: {
     type: String,

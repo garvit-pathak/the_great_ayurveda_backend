@@ -34,12 +34,13 @@ exports.BookAppointment = (request, response) => {
       const client = require('twilio')(accountSid, authToken);
       client.messages
         .create({
-          body: "Hello " +a+ " your request for appointment has been The Great Ayurveda team will soon contact you "+currentDate,
+          body: "Hello " +patientName+ " your request for appointment has been The Great Ayurveda team will soon contact you "+currentDate,
           from: +16105802420,
-          to: +91+d
+          to: +91+mobile
         })
         .then(message => console.log(message.sid)).catch(err => {
           console.log(err);
+          console.log(result1)
         })
     });
 };
