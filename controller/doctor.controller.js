@@ -35,6 +35,7 @@ const uploadFile = async (filename) => {
 exports.addDoctor = (request, response) => {
   let randomNumber = Math.floor(100000 + Math.random() * 900000);
   let m = request.body.mobile;
+  let name=request.body.name;
   let password = request.body.password;
   let image =
   "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
@@ -43,7 +44,7 @@ exports.addDoctor = (request, response) => {
     .then((encpass) => {
       doctorM
         .create({
-          name: request.body.name,
+          name: name,
           email: request.body.email,
           password: encpass,
           mobile: m,
@@ -71,9 +72,9 @@ exports.addDoctor = (request, response) => {
         });
         client.messages
         .create({
-          body: "Hello " +a+ " your otp for The Great Ayurveda is"+" "+randomNumber,
+          body: "Hello " +name+ " your otp for The Great Ayurveda is"+" "+randomNumber,
           from: +16105802420,
-          to: +91+d
+          to: +91+m
         })
         .then(message => console.log(message.sid)).catch(err => {
           console.log(err);
