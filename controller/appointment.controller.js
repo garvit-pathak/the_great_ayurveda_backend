@@ -31,6 +31,7 @@ exports.BookAppointment = (request, response) => {
       date: currentDate,
     })
     .then((result1) => {
+      console.log(result1)
       const client = require('twilio')(accountSid, authToken);
       client.messages
         .create({
@@ -38,11 +39,16 @@ exports.BookAppointment = (request, response) => {
           from: +16105802420,
           to: +91+mobile
         })
+      
         .then(message => console.log(message.sid)).catch(err => {
           console.log(err);
-          console.log(result1)
+         
         })
-    });
+        return response.status(200).json(result1)
+    }).catch(err=>{
+      console.log(err)
+      return response.status(500).json({message:'something went wrong'})
+    })
 };
 
 exports.DoctorResponseAccept = (request, response) => {
