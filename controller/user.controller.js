@@ -9,7 +9,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 const { Storage } = require("@google-cloud/storage");
-let bucketName = "gs://ayurveda-d6cac.appspot.com";
+let bucketName = "gs://app-project-ayurveda2.appspot.com";
 
 const storage = new Storage({
   keyFilename: "serviceFirebaseStorage.json",
@@ -35,9 +35,7 @@ exports.SignUp = (request, response) => {
   let c = request.body.password;
   let d = request.body.mobile;
   let e =
-    "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
-    request.file.filename +
-    "?alt=media&token=user-image";
+  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
 
   let randomNumber = Math.floor(100000 + Math.random() * 900000);
 

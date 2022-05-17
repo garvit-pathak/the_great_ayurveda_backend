@@ -7,7 +7,7 @@ const csv=require('csvtojson');
 
 let storedObj;
 
-let bucketName = "gs://ayurveda-d6cac.appspot.com";
+let bucketName = "gs://app-project-ayurveda2.appspot.com";
 
 const storage = new Storage({
   keyFilename: "serviceFirebaseStorage.json",
@@ -28,9 +28,7 @@ const uploadFile = async (filename) => {
 
 exports.Add = (request, response) => {
   let image =
-    "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
-    request.file.filename +
-    "?alt=media&token=saved-image";
+  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
   diseaseM
     .create({
       name: request.body.name,

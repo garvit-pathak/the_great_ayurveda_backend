@@ -4,7 +4,7 @@ const doctor = require("../model/doctor.model");
 const jwt = require("jsonwebtoken");
 const { Storage } = require("@google-cloud/storage");
 
-let bucketName = "gs://ayurveda-d6cac.appspot.com";
+let bucketName = "gs://app-project-ayurveda2.appspot.com";
 
 const storage = new Storage({
   keyFilename: "serviceFirebaseStorage.json",
@@ -28,9 +28,7 @@ exports.SignUp = (request, response) => {
   let b = request.body.email;
   let c = request.body.password;
   let d =
-    "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
-    request.file.filename +
-    "?alt=media&token=saved-image";
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
   let e = request.body.mobile;
 
   adminM
