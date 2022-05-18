@@ -65,10 +65,10 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // keyword: {
-  //     type: String,
-  //     required: true
-  // },
+  speciality: {
+      type: String,
+      // required: true
+  },
   reviewerDetail: [
     {
       uId: { type: Schema.Types.ObjectId, ref: "users" },

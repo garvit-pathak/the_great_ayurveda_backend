@@ -16,7 +16,7 @@ const uploadFile = async(filename) => {
         gzip: true,
         metadata: {
             metadata: {
-                firebaseStorageDownloadTokens: "medicine-image",
+                firebaseStorageDownloadTokens: "image",
             },
         },
     });
@@ -30,7 +30,7 @@ exports.Add = (request, response) => {
     let c = request.body.description;
     let d = request.body.stock;
     let e =
-    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
     let f = request.body.keyword;
     let g = request.body.category;
     let precaution = request.body.precaution;
@@ -141,7 +141,7 @@ exports.Update = (request, response) => {
         let e =
             "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
             request.file.filename +
-            "?alt=media&token=medicine-image";
+            "?alt=media&token=image";
         let f = request.body.keyword;
         let g = request.body.category;
         let precaution = request.body.precaution;

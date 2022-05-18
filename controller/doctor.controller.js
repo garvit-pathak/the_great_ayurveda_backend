@@ -38,7 +38,7 @@ exports.addDoctor = (request, response) => {
   let name=request.body.name;
   let password = request.body.password;
   let image =
-  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
+  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
   bcrypt
     .hash(password, 10)
     .then((encpass) => {
@@ -58,6 +58,7 @@ exports.addDoctor = (request, response) => {
           clinicAddress: request.body.clinicAddress,
           clinicNo: request.body.clinicNo,
           clinicTiming: request.body.clinicTiming,
+          speciality:request.body.speciality
         })
         .then((result) => {
           uploadFile(
@@ -207,7 +208,7 @@ exports.updateDoctor = (request, response) => {
     image =
       "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
       request.file.filename +
-      "?alt=media&token=saved-image";
+      "?alt=media&token=image";
 
     uploadFile(
       path.join(__dirname, "../", "public/images/") + request.file.filename
