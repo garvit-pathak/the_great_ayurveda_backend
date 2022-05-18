@@ -124,7 +124,9 @@ exports.Update = (request, response) => {
   let image;
   if (request.file) {
     image =
+
     "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
+
 
     uploadFile(
       path.join(__dirname, "../", "public/images/") + request.file.filename

@@ -1,25 +1,20 @@
 const cartM = require("../model/cart.model");
 
 exports.Add = async (request, response) => {
-  let uId = request.body.uId;
-  let mId = request.body.mId;
-  let cart = await cartM.findOne({ userId: uId });
-  console.log(request.body);
-  if (!cart) {
-    cart = new cartM();
-    cart.userId = uId;
-  }
-  console.log(cart);
+  var cart = await cartM.findOne({ userId: request.body.uId });
 
-  cart.medicineList.push(mId);
+  if (!cart) cart = new cartM({ userId: request.body.uId });
+
+  cart.medicineList.push(request.body.mId);
   cart
     .save()
-    .then((result) => {
-      return response.status(200).json(result);
+    .then((results) => {
+      console.log(results);
+      return response.status(201).json(results);
     })
     .catch((err) => {
       console.log(err);
-      return response.status(500).json({ error: "Not added" });
+      return response.status(500).json({ message: "something went wrong" });
     });
 };
 

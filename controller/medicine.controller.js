@@ -140,7 +140,9 @@ exports.Update = (request, response) => {
         let c = request.body.description;
         let d = request.body.stock;
         let e =
+
         "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
+
         let f = request.body.keyword;
         let g = request.body.category;
         let precaution = request.body.precaution;
