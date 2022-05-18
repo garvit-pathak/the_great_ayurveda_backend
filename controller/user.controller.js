@@ -20,7 +20,7 @@ const uploadFile = async (filename) => {
     gzip: true,
     metadata: {
       metadata: {
-        firebaseStorageDownloadTokens: "user-image",
+        firebaseStorageDownloadTokens: "image",
       },
     },
   });
@@ -35,7 +35,7 @@ exports.SignUp = (request, response) => {
   let c = request.body.password;
   let d = request.body.mobile;
   let e =
-  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
+  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
 
   let randomNumber = Math.floor(100000 + Math.random() * 900000);
 

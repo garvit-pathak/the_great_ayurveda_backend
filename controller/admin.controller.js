@@ -15,7 +15,7 @@ const uploadFile = async (filename) => {
     gzip: true,
     metadata: {
       metadata: {
-        firebaseStorageDownloadTokens: "saved-image",
+        firebaseStorageDownloadTokens: "image",
       },
     },
   });
@@ -28,7 +28,7 @@ exports.SignUp = (request, response) => {
   let b = request.body.email;
   let c = request.body.password;
   let d =
-    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
   let e = request.body.mobile;
 
   adminM
@@ -78,7 +78,7 @@ exports.Update = (request, response) => {
     let d =
       "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
       request.file.filename +
-      "?alt=media&token=saved-image";
+      "?alt=media&token=image";
     let e = request.body.mobile;
 
     adminM
