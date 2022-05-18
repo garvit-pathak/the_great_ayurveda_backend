@@ -3,7 +3,7 @@ const orderControl = require("../controller/order.controller");
 
 const orderRouter = express.Router();
 
-orderRouter.post("/placeorder", orderControl.PlaceOrder);
+orderRouter.post("/create", orderControl.create);
 
 orderRouter.get("/vieworder", orderControl.ViewPlacedOrder);
 orderRouter.post("/deliverystatus", orderControl.DeliveryStatusUpdate);
