@@ -10,5 +10,6 @@ orderRouter.post("/deliverystatus", orderControl.DeliveryStatusUpdate);
 orderRouter.get("/deliveredordered", orderControl.DeliveredOrders);
 orderRouter.post("/trackorder", orderControl.TrackOrder);
 orderRouter.post("/cancelorder", orderControl.CancelOrder);
+orderRouter.post("/razorpayorder", orderControl.RazorPayOnlinePayment);
 
 module.exports = orderRouter;
