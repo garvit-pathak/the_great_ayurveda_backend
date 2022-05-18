@@ -124,9 +124,9 @@ exports.Update = (request, response) => {
   let image;
   if (request.file) {
     image =
-      "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
-      request.file.filename +
-      "?alt=media&token=image";
+
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
+
 
     uploadFile(
       path.join(__dirname, "../", "public/images/") + request.file.filename
@@ -220,7 +220,7 @@ exports.Search = (request, response) => {
 };
 
 exports.ExcelUpload=(request,response)=>{
-  const filePath='diseaseExcel.csv';
+  const filePath='diseaseSecond.csv';
   csv().fromFile(filePath).then(jsonObj=>{
     storedObj=jsonObj;
     diseaseM.create(storedObj).then(result=>{
