@@ -4,6 +4,7 @@ const path = require('path');
 const { Storage } = require('@google-cloud/storage');
 const csv=require('csvtojson');
 
+let stored;
 
 let bucketName = "gs://app-project-ayurveda2.appspot.com";
 
@@ -16,7 +17,7 @@ const uploadFile = async(filename) => {
         gzip: true,
         metadata: {
             metadata: {
-                firebaseStorageDownloadTokens: "medicine-image",
+                firebaseStorageDownloadTokens: "image",
             },
         },
     });
@@ -30,7 +31,7 @@ exports.Add = (request, response) => {
     let c = request.body.description;
     let d = request.body.stock;
     let e =
-    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=user-image";
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
     let f = request.body.keyword;
     let g = request.body.category;
     let precaution = request.body.precaution;
@@ -139,9 +140,7 @@ exports.Update = (request, response) => {
         let c = request.body.description;
         let d = request.body.stock;
         let e =
-            "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
-            request.file.filename +
-            "?alt=media&token=medicine-image";
+        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
         let f = request.body.keyword;
         let g = request.body.category;
         let precaution = request.body.precaution;
@@ -221,7 +220,7 @@ exports.viewByKeyword = (request, response) => {
 
 
 exports.ExcelSave=(request,res)=>{
-    const csvFilePath = 'medicineExcel2.csv';
+    const csvFilePath = 'earDiseaseMed.csv';
 
     csv()
         .fromFile(csvFilePath)
