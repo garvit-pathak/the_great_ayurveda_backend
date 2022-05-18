@@ -1,11 +1,16 @@
 const orderM = require("../model/order.model");
 const cartM = require("../model/cart.model");
+const Razorpay = require("razorpay");
+
+const rzp = new Razorpay({
+  key_id: "rzp_test_NoD4Su2E0uGypJ",
+  key_secret: "wKd9yXeS1gfh5sDe87kLWBP2",
+});
 
 exports.PlaceOrder = (request, response) => {
   let userId = request.body.userId;
   let medicines = request.body.medicines;
   let price = request.body.price;
-  let total = request.body.total;
   let quantity = request.body.quantity;
   let mobile = request.body.mobile;
   let address = request.body.address;
@@ -16,6 +21,8 @@ exports.PlaceOrder = (request, response) => {
   let yy = dateObj.getFullYear();
 
   let currentDate = dd + "/" + mm + "/" + yy;
+  let total = request.body.total;
+
   console.log(currentDate);
   orderM
     .create({
@@ -29,7 +36,6 @@ exports.PlaceOrder = (request, response) => {
       },
       mobile: mobile,
       address: address,
-      paymentId: paymentId,
       orderStatus: "ordered",
     })
     .then((result) => {
@@ -58,6 +64,53 @@ exports.PlaceOrder = (request, response) => {
       return response.status(500).json({ error: error });
     });
 };
+
+exports.RazorPayOnlinePayment = (request, response) => {
+  let userId = request.body.userId;
+  let medicines = request.body.medicines;
+  let price = request.body.price;
+  let quantity = request.body.quantity;
+  let mobile = request.body.mobile;
+  let address = request.body.address;
+  let dateObj = new Date();
+  let dd = dateObj.getDate();
+  let mm = dateObj.getMonth() + 1;
+  let yy = dateObj.getFullYear();
+  let total = request.body.total;
+  let amount=total*1;
+  
+  let currentDate = dd + "/" + mm + "/" + yy;
+  
+  rzp.orders.create({
+    amount: amount,
+    currency: "INR"
+  }, (err, order) => {
+    if (err) {
+      console.log(err);
+    } else {
+      orderM.create({
+        userId: userId,
+        date: currentDate,
+        medicineList: {
+          medicines: medicines,
+          price: price,
+          total: total,
+          quantity: quantity,
+        },
+        mobile: mobile,
+        address: address,
+        orderStatus: "ordered"
+      }).then(result => {
+        console.log(result);
+        return response.status(200).json( {order,result} );
+      }).catch(err => {
+        console.log(err);
+        return response.status(500).json( {error:'Payment Not Successfull'} );
+
+      });
+    }
+  });
+}
 
 exports.ViewPlacedOrder = (request, response) => {
   orderM

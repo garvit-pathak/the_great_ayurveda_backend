@@ -45,9 +45,6 @@ const orderSchema = new mongoose.Schema({
     type: String,
     default: "unordered",
   },
-  paymentId: {
-    type: String,
-    required: true,
-  },
+  
 });
 module.exports = mongoose.model("orders", orderSchema);
