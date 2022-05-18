@@ -5,6 +5,8 @@ exports.Add = async (request, response) => {
 
   if (!cart) cart = new cartM({ userId: request.body.uId });
 
+  // cart.medicineList.findOne()
+
   cart.medicineList.push(request.body.mId);
   cart
     .save()
