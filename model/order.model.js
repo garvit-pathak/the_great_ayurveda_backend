@@ -6,35 +6,32 @@ const orderSchema = new mongoose.Schema({
         ref: "users",
     },
     medicineList: [{
-        medicines: {
+        product: {
             type: Schema.Types.ObjectId,
-            ref: "medicines",
+            ref: "products",
         },
-        price: {
+        totalPrice: {
             type: Number,
-            // required: true,
+            required: true,
         },
-        total: {
+        qty: {
             type: Number,
-            // required: true,
-        },
-        quantity: {
-            type: Number,
-            // required: true,
+            required: true,
         },
     }, ],
     date: {
-        type: String,
-        // required: true,
+        type: Date,
+        default: Date.now,
     },
     mobile: {
-        type: Number,
-        // required: true,
+        type: String,
+        required: true,
     },
     address: {
         type: String,
-        // required: true,
+        required: true,
     },
+    amount: Number,
     delivery: {
         type: String,
         default: "pending",
@@ -43,6 +40,5 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: "unordered",
     },
-
 });
 module.exports = mongoose.model("orders", orderSchema);
