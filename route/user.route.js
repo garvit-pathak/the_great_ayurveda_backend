@@ -19,6 +19,10 @@ userRouter.get("/verified", userController.IsVerified);
 userRouter.post("/signin", userController.SignIn);
 userRouter.post("/remove", userController.Remove);
 userRouter.get("/view", userController.View);
-userRouter.post("/login-by-social-media",userController.socialLogin);
-
+userRouter.post("/login-by-social-media", userController.socialLogin);
+userRouter.post(
+    "/updateUser",
+    upload.single("image"),
+    userController.updateUser
+);
 module.exports = userRouter;

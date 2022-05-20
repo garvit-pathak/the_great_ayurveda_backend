@@ -56,7 +56,6 @@ exports.Review = async(request, response) => {
     let uId = request.body.uId;
     let dId = request.body.dId;
     let reviewText = request.body.reviewText;
-
     let review = await diseaseM.findOne({ _id: dId });
     console.log(review);
     let Reviewobj = {
