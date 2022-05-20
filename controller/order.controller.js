@@ -66,7 +66,7 @@ exports.ViewPlacedOrder = (request, response) => {
     orderM
         .findOne({ orderStatus: "ordered" })
         .populate("userId")
-        .populate({ path: "medicineList.medicines" })
+        .populate({ path: "medicineList.product" })
         .then((result) => {
             return response.status(200).json(result);
         })

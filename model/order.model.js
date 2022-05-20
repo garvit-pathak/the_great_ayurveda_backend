@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema({
     medicineList: [{
         product: {
             type: Schema.Types.ObjectId,
-            ref: "products",
+            ref: "medicines",
         },
         totalPrice: {
             type: Number,
