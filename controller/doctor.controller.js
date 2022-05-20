@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const { Storage } = require("@google-cloud/storage");
 const requests = require("request");
 const jwt = require("jsonwebtoken");
-const csv=require('csvtojson');
+const csv = require('csvtojson');
 
 require('dotenv').config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -35,10 +35,10 @@ const uploadFile = async (filename) => {
 exports.addDoctor = (request, response) => {
   let randomNumber = Math.floor(100000 + Math.random() * 900000);
   let m = request.body.mobile;
-  let name=request.body.name;
+  let name = request.body.name;
   let password = request.body.password;
   let image =
-  "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
   bcrypt
     .hash(password, 10)
     .then((encpass) => {
@@ -58,12 +58,12 @@ exports.addDoctor = (request, response) => {
           clinicAddress: request.body.clinicAddress,
           clinicNo: request.body.clinicNo,
           clinicTiming: request.body.clinicTiming,
-          speciality:request.body.speciality
+          speciality: request.body.speciality
         })
         .then((result) => {
           uploadFile(
             path.join(__dirname, "../", "public/images/") +
-              request.file.filename
+            request.file.filename
           );
           return response.status(201).json(result);
         })
@@ -71,11 +71,11 @@ exports.addDoctor = (request, response) => {
           console.log(err);
           return response.status(500).json({ error: "Cannot Added" });
         });
-        client.messages
+      client.messages
         .create({
-          body: "Hello " +name+ " your otp for The Great Ayurveda is"+" "+randomNumber,
+          body: "Hello " + name + " your otp for The Great Ayurveda is" + " " + randomNumber,
           from: +16105802420,
-          to: +91+m
+          to: +91 + m
         })
         .then(message => console.log(message.sid)).catch(err => {
           console.log(err);
@@ -138,7 +138,7 @@ exports.viewAllDoctor = (request, response) => {
   doctorM
     .find()
     .then((result) => {
-      console.log(result);
+      
       return response.status(200).json(result);
     })
     .catch((err) => {
@@ -192,7 +192,7 @@ exports.deleteDoctor = (request, response) => {
     .deleteOne({ _id: request.body.id })
     .then((result) => {
       console.log(result);
-      if (deletedCount)
+      if (result.deletedCount)
         return response.status(200).json({ message: "delete succcess" });
       else return response.status(400).json({ message: "not deleted" });
     })
@@ -286,15 +286,35 @@ exports.signin = (request, response) => {
     });
 };
 
-exports.ExcelUpload=(request,response)=>{
-  const filePath='doctorExcel.csv';
-  csv().fromFile(filePath).then(jsonObj=>{
-    storedObj=jsonObj;
-    doctorM.create(storedObj).then(result=>{
+exports.ExcelUpload = (request, response) => {
+  const filePath = 'doctorExcel.csv';
+  csv().fromFile(filePath).then(jsonObj => {
+    storedObj = jsonObj;
+    doctorM.create(storedObj).then(result => {
       return response.status(201).json(result);
-    }).catch(err=>{
+    }).catch(err => {
       console.log(err);
-      return response.status(500).json({error:'Cannot Upload ExcelSheet'});
+      return response.status(500).json({ error: 'Cannot Upload ExcelSheet' });
     })
+  });
+}
+
+exports.ApproveDoctor = (request, response) => {
+  let doctorId = request.body.doctorId;
+  doctorM.updateOne({ _id: doctorId }, { isApproved: true }).then(result => {
+    return response.status(201).json(result);
+  }).catch(err => {
+    console.log(err);
+    return response.status(201).json(result);
+  });
+}
+
+exports.RejectDoctor = (request, response) => {
+  let doctorId = request.body.doctorId;
+  doctorM.deleteOne({ _id: doctorId }).then(result => {
+    return response.status(201).json(result);
+  }).catch(err => {
+    console.log(err);
+    return response.status(201).json(result);
   });
 }

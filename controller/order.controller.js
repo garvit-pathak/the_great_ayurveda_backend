@@ -114,7 +114,7 @@ exports.RazorPayOnlinePayment = (request, response) => {
 
 exports.ViewPlacedOrder = (request, response) => {
   orderM
-    .findOne({ orderStatus: "ordered" })
+    .find({ orderStatus: "ordered" })
     .populate("userId")
     .populate({ path: "medicineList.medicines" })
     .then((result) => {

@@ -220,7 +220,7 @@ exports.Search = (request, response) => {
 };
 
 exports.ExcelUpload=(request,response)=>{
-  const filePath='diseaseSecond.csv';
+  const filePath='neckPainDiseases.csv';
   csv().fromFile(filePath).then(jsonObj=>{
     storedObj=jsonObj;
     diseaseM.create(storedObj).then(result=>{
