@@ -5,10 +5,10 @@ const doctorController = require("../controller/doctor.controller");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: "public/images",
-  filename: (request, file, cb) => {
-    cb(null, Date.now() + "_" + file.originalname);
-  },
+    destination: "public/images",
+    filename: (request, file, cb) => {
+        cb(null, Date.now() + "_" + file.originalname);
+    },
 });
 
 const upload = multer({ storage: storage });
@@ -23,13 +23,16 @@ doctorRouter.post("/viewByKeyword", doctorController.viewByKeyword);
 doctorRouter.post("/viewByCat", doctorController.viewByCat);
 doctorRouter.post("/deleteDoctor", doctorController.deleteDoctor);
 doctorRouter.post(
-  "/updateDoctor",
-  upload.single("image"),
-  doctorController.updateDoctor
+    "/updateDoctor",
+    upload.single("image"),
+    doctorController.updateDoctor
 );
 
 doctorRouter.post("/excel",doctorController.ExcelUpload);
 doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
 doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
+
+
+doctorRouter.post("/excel", doctorController.ExcelUpload);
 
 module.exports = doctorRouter;
