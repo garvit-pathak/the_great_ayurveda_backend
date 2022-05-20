@@ -8,22 +8,22 @@ const rzp = new Razorpay({
 
 
 exports.place = (request, response) => {
-    console.log(request.body);
-    let medicineList = request.body.medicineList;
-    orderM.create({
-        userId: request.body.id,
-        medicineList: request.body.medicineList,
-        mobile: request.body.mobile,
-        address: request.body.address,
-        amount: request.body.amount,
-        orderStatus: 'ordered'
-    }).then(result => {
-        console.log(result);
-    }).catch(err => {
-        console.log(err);
-    });
-}
-
+        console.log(request.body);
+        let medicineList = request.body.medicineList;
+        orderM.create({
+            userId: request.body.id,
+            medicineList: request.body.medicineList,
+            mobile: request.body.mobile,
+            address: request.body.address,
+            amount: request.body.amount,
+            orderStatus: 'ordered'
+        }).then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    //
 exports.create = (request, response) => {
     console.log(request.body)
     console.log(request.body.order.medicineList);
