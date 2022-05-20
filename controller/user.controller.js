@@ -174,3 +174,27 @@ exports.View = (request, response) => {
         });
 
 };
+exports.socialLogin = async (request, response) => {
+    const user = await userM.findOne({ email: request.body.email });
+    if (user) {
+      const payload = { subject: user._id };
+      const token = jwt.sign(payload, "dhdbsjcdsncjdsfjdsjkfskjdsfr");
+      console.log(user);
+      return response.status(200).json({
+        user: user,
+        token: token,
+      });
+    }
+    else {
+      userM.create({ name: request.body.name, email: request.body.email, image: request.body.image })
+        .then(result => {
+          const payload = { subject: user._id };
+          const token = jwt.sign(payload, "dhdbsjcdsncjdsfjdsjkfskjdsfr");
+          console.log(result);
+          return response.status(200).json({user:result,token:token});
+        }).catch(err => {
+          console.log(err);
+          return response.status(500).json(err);
+        });
+    }
+  }

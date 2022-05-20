@@ -199,18 +199,19 @@ exports.deleteOneMedicine = (request, response) => {
         });
 };
 
+
 exports.Search = (request, response) => {
     diseaseM
-        .find({ keyword: { $regex: request.body.keyword, $options: "i" } })
-        .then((result) => {
-            console.log(result);
-            return response.status(200).json(result);
-        })
-        .catch((err) => {
-            console.log(err);
-            return response.status(500).json(err);
-        });
-};
+      .findOne({ keyword: { $regex: request.body.keyword, $options: "i" } }).populate("medicines.mId")
+      .then((result) => {
+        console.log(result);
+        return response.status(200).json(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        return response.status(500).json(err);
+      });
+  };
 
 
 exports.ExcelUpload = (request, response) => {
