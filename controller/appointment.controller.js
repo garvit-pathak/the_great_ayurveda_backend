@@ -116,9 +116,8 @@ exports.acceptAppointment = (request, response) => {
     time = request.body.time;
     date = request.body.date;
     uId = request.body.uId;
+    mobile = request.body.mobile
     userM.findOne({ _id: uId }).then(resultuser => {
-        console.log(resultuser);
-        let number = "" + resultuser.mobile
         appointmentM.updateOne({ _id: request.body.aId }, { $set: { apointmentStatus: "Accepted" } }).then(result => {
             console.log(result);
             if (result.modifiedCount && result.modifiedCount) {
@@ -126,7 +125,7 @@ exports.acceptAppointment = (request, response) => {
                     .create({
                         body: "Hello " + resultuser.name + " your appointment date:" + date + "and time:" + time + "soon later..",
                         from: +16105802420,
-                        to: +91 + number
+                        to: +91 + mobile
                     })
 
                 .then(message => console.log(message.sid)).catch(err => {
@@ -149,9 +148,8 @@ exports.acceptAppointment = (request, response) => {
 
 exports.cancleApppoinment = (request, response) => {
     uId = request.body.uId;
+    mobile = request.body.mobile;
     userM.findOne({ _id: uId }).then(resultuser => {
-        console.log(resultuser);
-        let number = "" + resultuser.mobile
         appointmentM.deleteOne({ _id: request.body.aId }).then(result => {
                 console.log(result);
                 if (result.deletedCount) {
@@ -159,7 +157,7 @@ exports.cancleApppoinment = (request, response) => {
                         .create({
                             body: "Hello " + resultuser.name + " sorry I am not accepted your ",
                             from: +16105802420,
-                            to: +91 + number
+                            to: +91 + mobile
                         })
 
                     .then(message => console.log(message.sid)).catch(err => {
