@@ -114,7 +114,7 @@ exports.DeliveredOrders = (request, response) => {
 
 exports.TrackOrder = (request, response) => {
     orderM
-        .findOne({ orderStatus: "ordered", userId: request.body.userId })
+        .find({ orderStatus: "ordered", userId: request.body.userId })
         .populate("userId")
         .populate({ path: "medicineList.medicines" })
         .then((result) => {
