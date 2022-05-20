@@ -21,12 +21,16 @@ doctorRouter.get("/viewAllDoctor", doctorController.viewAllDoctor);
 doctorRouter.post("/viewOneDoctor", doctorController.viewOneDoctor);
 doctorRouter.post("/viewByKeyword", doctorController.viewByKeyword);
 doctorRouter.post("/viewByCat", doctorController.viewByCat);
-doctorRouter.delete("/deleteDoctor", doctorController.deleteDoctor);
+doctorRouter.post("/deleteDoctor", doctorController.deleteDoctor);
 doctorRouter.post(
     "/updateDoctor",
     upload.single("image"),
     doctorController.updateDoctor
 );
+
+doctorRouter.post("/excel",doctorController.ExcelUpload);
+doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
+doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
 
 
 doctorRouter.post("/excel", doctorController.ExcelUpload);

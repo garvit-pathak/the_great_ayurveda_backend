@@ -33,6 +33,41 @@ const uploadFile = async(filename) => {
 };
 
 exports.addDoctor = (request, response) => {
+
+  let randomNumber = Math.floor(100000 + Math.random() * 900000);
+  let m = request.body.mobile;
+  let name = request.body.name;
+  let password = request.body.password;
+  let image =
+    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
+  bcrypt
+    .hash(password, 10)
+    .then((encpass) => {
+      doctorM
+        .create({
+          name: name,
+          email: request.body.email,
+          password: encpass,
+          mobile: m,
+          image: image,
+          exprience: request.body.exprience,
+          degree: request.body.degree,
+          category: request.body.category,
+          otp: randomNumber,
+          gender: request.body.gender,
+          clinicName: request.body.clinicName,
+          clinicAddress: request.body.clinicAddress,
+          clinicNo: request.body.clinicNo,
+          clinicTiming: request.body.clinicTiming,
+          speciality: request.body.speciality
+        })
+        .then((result) => {
+          uploadFile(
+            path.join(__dirname, "../", "public/images/") +
+            request.file.filename
+          );
+          return response.status(201).json(result);
+
     let randomNumber = Math.floor(100000 + Math.random() * 900000);
     let m = request.body.mobile;
     let name = request.body.name;
@@ -80,10 +115,12 @@ exports.addDoctor = (request, response) => {
                 .then(message => console.log(message.sid)).catch(err => {
                     console.log(err);
                 })
+
         })
         .catch((err) => {
             console.log(err);
         });
+
 };
 
 exports.verify = (request, response) => {
@@ -132,6 +169,7 @@ exports.review = async(request, response) => {
 };
 
 exports.viewAllDoctor = (request, response) => {
+
     doctorM
         .find()
         .then((result) => {
@@ -142,6 +180,7 @@ exports.viewAllDoctor = (request, response) => {
             console.log(err);
             return response.status(500).json({ message: "Not found" });
         });
+
 };
 
 exports.viewOneDoctor = (request, response) => {
@@ -185,6 +224,7 @@ exports.viewByCat = (request, response) => {
 };
 
 exports.deleteDoctor = (request, response) => {
+
     doctorM
         .deleteOne({ _id: request.body.id })
         .then((result) => {
@@ -197,6 +237,7 @@ exports.deleteDoctor = (request, response) => {
             console.log(err);
             return response.status(500).json({ message: "Error" });
         });
+
 };
 
 exports.updateDoctor = (request, response) => {
@@ -281,6 +322,27 @@ exports.signin = (request, response) => {
 };
 
 exports.ExcelUpload = (request, response) => {
+
+
+exports.ApproveDoctor = (request, response) => {
+  let doctorId = request.body.doctorId;
+  doctorM.updateOne({ _id: doctorId }, { isApproved: true }).then(result => {
+    return response.status(201).json(result);
+  }).catch(err => {
+    console.log(err);
+    return response.status(201).json(result);
+  });
+}
+
+exports.RejectDoctor = (request, response) => {
+  let doctorId = request.body.doctorId;
+  doctorM.deleteOne({ _id: doctorId }).then(result => {
+    return response.status(201).json(result);
+  }).catch(err => {
+    console.log(err);
+    return response.status(201).json(result);
+  });
+
     const filePath = 'doctorExcel.csv';
     csv().fromFile(filePath).then(jsonObj => {
         storedObj = jsonObj;
@@ -291,4 +353,5 @@ exports.ExcelUpload = (request, response) => {
             return response.status(500).json({ error: 'Cannot Upload ExcelSheet' });
         })
     });
+
 }

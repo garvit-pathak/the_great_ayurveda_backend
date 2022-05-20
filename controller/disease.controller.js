@@ -212,6 +212,7 @@ exports.Search = (request, response) => {
         });
 };
 
+
 exports.ExcelUpload = (request, response) => {
     const filePath = 'diseaseExcel.csv';
     let storedObj;
@@ -243,5 +244,6 @@ exports.ExcelUpload = (request, response) => {
         }
     }).catch(err => {
         console.log(err);
+
     })
 };

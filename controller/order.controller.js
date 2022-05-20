@@ -62,6 +62,7 @@ exports.payOnline = (request, response) => {
 }
 
 exports.ViewPlacedOrder = (request, response) => {
+
     orderM
         .findOne({ orderStatus: "ordered" })
         .populate("userId")
@@ -73,6 +74,7 @@ exports.ViewPlacedOrder = (request, response) => {
             console.log(err);
             return response.status(500).json({ error: error });
         });
+
 };
 
 exports.DeliveryStatusUpdate = (request, response) => {

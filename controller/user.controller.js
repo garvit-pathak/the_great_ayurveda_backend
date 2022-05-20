@@ -162,6 +162,7 @@ exports.Remove = (request, response) => {
 };
 
 exports.View = (request, response) => {
+
     userM
         .find()
         .then((result) => {
@@ -171,4 +172,5 @@ exports.View = (request, response) => {
             console.log(err);
             return response.status(500).json({ message: "Not getting data" });
         });
+
 };
