@@ -5,6 +5,7 @@ const { Storage } = require("@google-cloud/storage");
 const requests = require("request");
 const jwt = require("jsonwebtoken");
 const csv=require('csvtojson');
+const { response } = require("express");
 
 require('dotenv').config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -49,7 +50,7 @@ exports.addDoctor = (request, response) => {
           password: encpass,
           mobile: m,
           image: image,
-          exprience: request.body.exprience,
+          experience: request.body.experience,
           degree: request.body.degree,
           category: request.body.category,
           otp: randomNumber,
@@ -255,6 +256,15 @@ exports.updateDoctor = (request, response) => {
     });
 };
 
+exports.ViewReviewByDid=(request,response)=>{
+  doctorM.findOne({_id: request.body.dId}).populate({path: 'reviewerDetail.uId'})
+  .then((result)=>{
+      return response.status(200).json(result);
+  })
+  .catch((err)=>{
+    return response.status(500).json(err);
+  })
+}
 exports.signin = (request, response) => {
   var email = request.body.email;
   var p = request.body.password;
@@ -297,4 +307,15 @@ exports.ExcelUpload=(request,response)=>{
       return response.status(500).json({error:'Cannot Upload ExcelSheet'});
     })
   });
+}
+exports.RemoveReview=async (request,response)=>{
+  let uId=request.body.uId;
+  // console.log(request.body.uId+" "+request.body.dId);
+  let doctor= await doctorM.findOne({_id:request.body.dId});
+  doctor.reviewerDetail.pull({_id:uId});
+  doctor.save().then(result=>{
+    console.log(result);
+  }).catch(err=>{
+    console.log(err);
+  })
 }
