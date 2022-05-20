@@ -5,15 +5,13 @@ const { Storage } = require("@google-cloud/storage");
 const requests = require("request");
 const jwt = require("jsonwebtoken");
 
+const csv = require("csvtojson");
 
-const csv = require('csvtojson');
-
-require('dotenv').config();
+require("dotenv").config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-const client = require('twilio')(accountSid, authToken);
-
+const client = require("twilio")(accountSid, authToken);
 
 let storedObj;
 let bucketName = "gs://app-project-ayurveda2.appspot.com";
@@ -35,14 +33,14 @@ const uploadFile = async(filename) => {
 };
 
 exports.addDoctor = (request, response) => {
-
-
     let randomNumber = Math.floor(100000 + Math.random() * 900000);
     let m = request.body.mobile;
     let name = request.body.name;
     let password = request.body.password;
     let image =
-        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
+        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" +
+        request.file.filename +
+        "?alt=media&token=image";
     bcrypt
         .hash(password, 10)
         .then((encpass) => {
@@ -53,7 +51,7 @@ exports.addDoctor = (request, response) => {
                     password: encpass,
                     mobile: m,
                     image: image,
-                    exprience: request.body.exprience,
+                    experience: request.body.experience,
                     degree: request.body.degree,
                     category: request.body.category,
                     otp: randomNumber,
@@ -62,7 +60,7 @@ exports.addDoctor = (request, response) => {
                     clinicAddress: request.body.clinicAddress,
                     clinicNo: request.body.clinicNo,
                     clinicTiming: request.body.clinicTiming,
-                    speciality: request.body.speciality
+                    speciality: request.body.speciality,
                 })
                 .then((result) => {
                     uploadFile(
@@ -70,64 +68,31 @@ exports.addDoctor = (request, response) => {
                         request.file.filename
                     );
                     return response.status(201).json(result);
-
-                    let randomNumber = Math.floor(100000 + Math.random() * 900000);
-                    let m = request.body.mobile;
-                    let name = request.body.name;
-                    let password = request.body.password;
-                    let image =
-                        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
-                    bcrypt
-                        .hash(password, 10)
-                        .then((encpass) => {
-                            doctorM
-                                .create({
-                                    name: name,
-                                    email: request.body.email,
-                                    password: encpass,
-                                    mobile: m,
-                                    image: image,
-                                    exprience: request.body.exprience,
-                                    degree: request.body.degree,
-                                    category: request.body.category,
-                                    otp: randomNumber,
-                                    gender: request.body.gender,
-                                    clinicName: request.body.clinicName,
-                                    clinicAddress: request.body.clinicAddress,
-                                    clinicNo: request.body.clinicNo,
-                                    clinicTiming: request.body.clinicTiming,
-                                    speciality: request.body.speciality
-                                })
-                                .then((result) => {
-                                    uploadFile(
-                                        path.join(__dirname, "../", "public/images/") +
-                                        request.file.filename
-                                    );
-                                    return response.status(201).json(result);
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                    return response.status(500).json({ error: "Cannot Added" });
-                                });
-                            client.messages
-                                .create({
-                                    body: "Hello " + name + " your otp for The Great Ayurveda is" + " " + randomNumber,
-                                    from: +16105802420,
-                                    to: +91 + m
-                                })
-                                .then(message => console.log(message.sid)).catch(err => {
-                                    console.log(err);
-                                })
-
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-
                 })
-
+                .catch((err) => {
+                    console.log(err);
+                    return response.status(500).json({ error: "Cannot Added" });
+                });
+            client.messages
+                .create({
+                    body: "Hello " +
+                        name +
+                        " your otp for The Great Ayurveda is" +
+                        " " +
+                        randomNumber,
+                    from: +16105802420,
+                    to: +91 + m,
+                })
+                .then((message) => console.log(message.sid))
+                .catch((err) => {
+                    console.log(err);
+                });
         })
-}
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
 exports.verify = (request, response) => {
     console.log(request.body);
     doctorM
@@ -174,7 +139,6 @@ exports.review = async(request, response) => {
 };
 
 exports.viewAllDoctor = (request, response) => {
-
     doctorM
         .find()
         .then((result) => {
@@ -185,7 +149,6 @@ exports.viewAllDoctor = (request, response) => {
             console.log(err);
             return response.status(500).json({ message: "Not found" });
         });
-
 };
 
 exports.viewOneDoctor = (request, response) => {
@@ -229,7 +192,6 @@ exports.viewByCat = (request, response) => {
 };
 
 exports.deleteDoctor = (request, response) => {
-
     doctorM
         .deleteOne({ _id: request.body.id })
         .then((result) => {
@@ -242,7 +204,6 @@ exports.deleteDoctor = (request, response) => {
             console.log(err);
             return response.status(500).json({ message: "Error" });
         });
-
 };
 
 exports.updateDoctor = (request, response) => {
@@ -295,15 +256,17 @@ exports.updateDoctor = (request, response) => {
         });
 };
 
-exports.ViewReviewByDid=(request,response)=>{
-  doctorM.findOne({_id: request.body.dId}).populate({path: 'reviewerDetail.uId'})
-  .then((result)=>{
-      return response.status(200).json(result);
-  })
-  .catch((err)=>{
-    return response.status(500).json(err);
-  })
-}
+exports.ViewReviewByDid = (request, response) => {
+    doctorM
+        .findOne({ _id: request.body.dId })
+        .populate({ path: "reviewerDetail.uId" })
+        .then((result) => {
+            return response.status(200).json(result);
+        })
+        .catch((err) => {
+            return response.status(500).json(err);
+        });
+};
 exports.signin = (request, response) => {
     var email = request.body.email;
     var p = request.body.password;
@@ -335,51 +298,63 @@ exports.signin = (request, response) => {
         });
 };
 
-
-exports.RemoveReview=async (request,response)=>{
-  let uId=request.body.uId;
-  // console.log(request.body.uId+" "+request.body.dId);
-  let doctor= await doctorM.findOne({_id:request.body.dId});
-  doctor.reviewerDetail.pull({_id:uId});
-  doctor.save().then(result=>{
-    console.log(result);
-  }).catch(err=>{
-    console.log(err);
-  })
+exports.RemoveReview = async(request, response) => {
+    let uId = request.body.uId;
+    // console.log(request.body.uId+" "+request.body.dId);
+    let doctor = await doctorM.findOne({ _id: request.body.dId });
+    doctor.reviewerDetail.pull({ _id: uId });
+    doctor
+        .save()
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
 
 exports.ExcelUpload = (request, response) => {
-
-
-    exports.ApproveDoctor = (request, response) => {
-        let doctorId = request.body.doctorId;
-        doctorM.updateOne({ _id: doctorId }, { isApproved: true }).then(result => {
-            return response.status(201).json(result);
-        }).catch(err => {
-            console.log(err);
-            return response.status(201).json(result);
-        });
-    }
-
-    exports.RejectDoctor = (request, response) => {
-        let doctorId = request.body.doctorId;
-        doctorM.deleteOne({ _id: doctorId }).then(result => {
-            return response.status(201).json(result);
-        }).catch(err => {
-            console.log(err);
-            return response.status(201).json(result);
-        });
-
-        const filePath = 'doctorExcel.csv';
-        csv().fromFile(filePath).then(jsonObj => {
+    const filePath = "doctorExcel.csv";
+    csv()
+        .fromFile(filePath)
+        .then((jsonObj) => {
             storedObj = jsonObj;
-            doctorM.create(storedObj).then(result => {
-                return response.status(201).json(result);
-            }).catch(err => {
-                console.log(err);
-                return response.status(500).json({ error: 'Cannot Upload ExcelSheet' });
-            })
+            doctorM
+                .create(storedObj)
+                .then((result) => {
+                    return response.status(201).json(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return response
+                        .status(500)
+                        .json({ error: "Cannot Upload ExcelSheet" });
+                });
         });
+};
 
-    }
+exports.ApproveDoctor = (request, response) => {
+    let doctorId = request.body.doctorId;
+    doctorM
+        .updateOne({ _id: doctorId }, { isApproved: true })
+        .then((result) => {
+            return response.status(201).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(201).json(result);
+        });
+};
 
-}
+exports.RejectDoctor = (request, response) => {
+    let doctorId = request.body.doctorId;
+    doctorM
+        .deleteOne({ _id: doctorId })
+        .then((result) => {
+            return response.status(201).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(201).json(result);
+        });
+};
