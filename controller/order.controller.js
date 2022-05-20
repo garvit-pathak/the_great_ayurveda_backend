@@ -1,147 +1,68 @@
 const orderM = require("../model/order.model");
-const cartM = require("../model/cart.model");
 const Razorpay = require("razorpay");
-// var instance = new Razorpay({ key_id: 'rzp_test_NPr7p2g2REFz6n', key_secret: '5IUWlT8W8DcE7AKSVYCDvV7O' })
 
 const rzp = new Razorpay({
     key_id: "rzp_test_NoD4Su2E0uGypJ",
     key_secret: "wKd9yXeS1gfh5sDe87kLWBP2",
 });
 
-// exports.PlaceOrder = (request, response) => {
-//   let userId = request.body.userId;
-//   let medicines = request.body.medicines;
-//   let price = request.body.price;
-//   let quantity = request.body.quantity;
-//   let mobile = request.body.mobile;
-//   let address = request.body.address;
-//   let paymentId = request.body.paymentId;
-//   let dateObj = new Date();
-//   let dd = dateObj.getDate();
-//   let mm = dateObj.getMonth() + 1;
-//   let yy = dateObj.getFullYear();
 
-//   let currentDate = dd + "/" + mm + "/" + yy;
-//   let total = request.body.total;
-
-//   console.log(currentDate);
-//   orderM
-//     .create({
-//       userId: userId,
-//       date: currentDate,
-//       medicineList: {
-//         medicines: medicines,
-//         price: price,
-//         total: total,
-//         quantity: quantity,
-//       },
-//       mobile: mobile,
-//       address: address,
-//       orderStatus: "ordered",
-//     })
-//     .then((result) => {
-//       cartM
-//         .deleteOne({ userId: userId })
-//         .then((resultUpdate) => {
-//           console.log(resultUpdate);
-//           if (resultUpdate.deletedCount) {
-//             return response
-//               .status(200)
-//               .json({
-//                 result: result,
-//                 message: "Order Placed and Cart Product released",
-//               });
-//           } else {
-//             return response.status(200).json({ error: "Not Updated" });
-//           }
-//         })
-//         .catch((errUpdate) => {
-//           console.log(errUpdate);
-//           return response.status(500).json({ error: "Internal Error" });
-//         });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       return response.status(500).json({ error: error });
-//     });
-// };
-
-exports.create = (request, response) => {
-    console.log(request.body);
-    let amount = request.body.order.amount + '00';
-    amount = amount * 1;
-    rzp.orders.create({
-        amount: amount,
-        currency: "INR"
-    }, (err, order) => {
-        if (err) {
+exports.place = (request, response) => {
+        console.log(request.body);
+        let medicineList = request.body.medicineList;
+        orderM.create({
+            userId: request.body.id,
+            medicineList: request.body.medicineList,
+            mobile: request.body.mobile,
+            address: request.body.address,
+            amount: request.body.amount,
+            orderStatus: 'ordered'
+        }).then(result => {
+            console.log(result);
+        }).catch(err => {
             console.log(err);
-        } else {
-            orderM.create({
-                userId: request.body.order.id,
-                medicineList: request.body.order.medicineList,
-                mobile: request.body.order.mobile,
-                address: request.body.order.address,
-                amount: request.body.order.amount
-            }).then(result => {
-                console.log(result);
-                console.log(order);
-                return response.status(200).json({ order, result });
-            }).catch(err => {
-                console.log(err);
-            });
-        }
+        });
+    }
+    //
+exports.create = (request, response) => {
+    console.log(request.body)
+    console.log(request.body.order.medicineList);
+    orderM.create({
+        userId: request.body.order.id,
+        medicineList: request.body.order.medicineList,
+        mobile: request.body.order.mobile,
+        address: request.body.order.address,
+        amount: request.body.order.amount * 1,
+        orderStatus: 'ordered'
+
+    }).then(result => {
+        return response.status(200).json({ result });
+    }).catch(err => {
+        console.log(err);
     });
 }
 
-exports.RazorPayOnlinePayment = (request, response) => {
-    let userId = request.body.userId;
-    let medicines = request.body.medicines;
-    let price = request.body.price;
-    let quantity = request.body.quantity;
-    let mobile = request.body.mobile;
-    let address = request.body.address;
-    let dateObj = new Date();
-    let dd = dateObj.getDate();
-    let mm = dateObj.getMonth() + 1;
-    let yy = dateObj.getFullYear();
-    let total = request.body.total;
-    let amount = total * 1;
 
-    let currentDate = dd + "/" + mm + "/" + yy;
-
+exports.payOnline = (request, response) => {
     rzp.orders.create({
-        amount: amount,
-        currency: "INR"
-    }, (err, order) => {
-        if (err) {
-            console.log(err);
-        } else {
-            orderM.create({
-                userId: userId,
-                date: currentDate,
-                medicineList: {
-                    medicines: medicines,
-                    price: price,
-                    total: total,
-                    quantity: quantity,
-                },
-                mobile: mobile,
-                address: address,
-                orderStatus: "ordered"
-            }).then(result => {
-                console.log(result);
-                return response.status(200).json({ order, result });
-            }).catch(err => {
-                console.log(err);
-                return response.status(500).json({ error: 'Payment Not Successfull' });
-
-            });
+        amount: request.body.payment + '00',
+        currency: "INR",
+        receipt: "receipt#1",
+        notes: {
+            key1: "value3",
+            key2: "value2"
         }
-    });
+    }, (err, order) => {
+        console.log(order)
+        response.json(order)
+        console.log(err)
+    })
+
+
 }
 
 exports.ViewPlacedOrder = (request, response) => {
+
     orderM
         .findOne({ orderStatus: "ordered" })
         .populate("userId")
@@ -153,6 +74,7 @@ exports.ViewPlacedOrder = (request, response) => {
             console.log(err);
             return response.status(500).json({ error: error });
         });
+
 };
 
 exports.DeliveryStatusUpdate = (request, response) => {
@@ -192,7 +114,7 @@ exports.DeliveredOrders = (request, response) => {
 
 exports.TrackOrder = (request, response) => {
     orderM
-        .findOne({ orderStatus: "ordered", userId: request.body.userId })
+        .find({ orderStatus: "ordered", userId: request.body.userId })
         .populate("userId")
         .populate({ path: "medicineList.medicines" })
         .then((result) => {

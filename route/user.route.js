@@ -2,10 +2,10 @@ const express = require("express");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: "public/images",
-  filename: (request, file, cb) => {
-    cb(null, Date.now() + "_" + file.originalname);
-  },
+    destination: "public/images",
+    filename: (request, file, cb) => {
+        cb(null, Date.now() + "_" + file.originalname);
+    },
 });
 
 const upload = multer({ storage: storage });
@@ -17,7 +17,8 @@ userRouter.post("/signup", upload.single("image"), userController.SignUp);
 userRouter.post("/verify", userController.Verify);
 userRouter.get("/verified", userController.IsVerified);
 userRouter.post("/signin", userController.SignIn);
-userRouter.get("/remove", userController.Remove);
+userRouter.post("/remove", userController.Remove);
 userRouter.get("/view", userController.View);
+userRouter.post("/login-by-social-media",userController.socialLogin);
 
 module.exports = userRouter;
