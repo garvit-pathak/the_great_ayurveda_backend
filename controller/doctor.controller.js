@@ -34,40 +34,6 @@ const uploadFile = async(filename) => {
 
 exports.addDoctor = (request, response) => {
 
-  let randomNumber = Math.floor(100000 + Math.random() * 900000);
-  let m = request.body.mobile;
-  let name = request.body.name;
-  let password = request.body.password;
-  let image =
-    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
-  bcrypt
-    .hash(password, 10)
-    .then((encpass) => {
-      doctorM
-        .create({
-          name: name,
-          email: request.body.email,
-          password: encpass,
-          mobile: m,
-          image: image,
-          exprience: request.body.exprience,
-          degree: request.body.degree,
-          category: request.body.category,
-          otp: randomNumber,
-          gender: request.body.gender,
-          clinicName: request.body.clinicName,
-          clinicAddress: request.body.clinicAddress,
-          clinicNo: request.body.clinicNo,
-          clinicTiming: request.body.clinicTiming,
-          speciality: request.body.speciality
-        })
-        .then((result) => {
-          uploadFile(
-            path.join(__dirname, "../", "public/images/") +
-            request.file.filename
-          );
-          return response.status(201).json(result);
-
     let randomNumber = Math.floor(100000 + Math.random() * 900000);
     let m = request.body.mobile;
     let name = request.body.name;
@@ -101,28 +67,64 @@ exports.addDoctor = (request, response) => {
                         request.file.filename
                     );
                     return response.status(201).json(result);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    return response.status(500).json({ error: "Cannot Added" });
-                });
-            client.messages
-                .create({
-                    body: "Hello " + name + " your otp for The Great Ayurveda is" + " " + randomNumber,
-                    from: +16105802420,
-                    to: +91 + m
-                })
-                .then(message => console.log(message.sid)).catch(err => {
-                    console.log(err);
+
+                    let randomNumber = Math.floor(100000 + Math.random() * 900000);
+                    let m = request.body.mobile;
+                    let name = request.body.name;
+                    let password = request.body.password;
+                    let image =
+                        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
+                    bcrypt
+                        .hash(password, 10)
+                        .then((encpass) => {
+                            doctorM
+                                .create({
+                                    name: name,
+                                    email: request.body.email,
+                                    password: encpass,
+                                    mobile: m,
+                                    image: image,
+                                    exprience: request.body.exprience,
+                                    degree: request.body.degree,
+                                    category: request.body.category,
+                                    otp: randomNumber,
+                                    gender: request.body.gender,
+                                    clinicName: request.body.clinicName,
+                                    clinicAddress: request.body.clinicAddress,
+                                    clinicNo: request.body.clinicNo,
+                                    clinicTiming: request.body.clinicTiming,
+                                    speciality: request.body.speciality
+                                })
+                                .then((result) => {
+                                    uploadFile(
+                                        path.join(__dirname, "../", "public/images/") +
+                                        request.file.filename
+                                    );
+                                    return response.status(201).json(result);
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    return response.status(500).json({ error: "Cannot Added" });
+                                });
+                            client.messages
+                                .create({
+                                    body: "Hello " + name + " your otp for The Great Ayurveda is" + " " + randomNumber,
+                                    from: +16105802420,
+                                    to: +91 + m
+                                })
+                                .then(message => console.log(message.sid)).catch(err => {
+                                    console.log(err);
+                                })
+
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+
                 })
 
         })
-        .catch((err) => {
-            console.log(err);
-        });
-
-};
-
+}
 exports.verify = (request, response) => {
     console.log(request.body);
     doctorM
@@ -324,34 +326,35 @@ exports.signin = (request, response) => {
 exports.ExcelUpload = (request, response) => {
 
 
-exports.ApproveDoctor = (request, response) => {
-  let doctorId = request.body.doctorId;
-  doctorM.updateOne({ _id: doctorId }, { isApproved: true }).then(result => {
-    return response.status(201).json(result);
-  }).catch(err => {
-    console.log(err);
-    return response.status(201).json(result);
-  });
-}
-
-exports.RejectDoctor = (request, response) => {
-  let doctorId = request.body.doctorId;
-  doctorM.deleteOne({ _id: doctorId }).then(result => {
-    return response.status(201).json(result);
-  }).catch(err => {
-    console.log(err);
-    return response.status(201).json(result);
-  });
-
-    const filePath = 'doctorExcel.csv';
-    csv().fromFile(filePath).then(jsonObj => {
-        storedObj = jsonObj;
-        doctorM.create(storedObj).then(result => {
+    exports.ApproveDoctor = (request, response) => {
+        let doctorId = request.body.doctorId;
+        doctorM.updateOne({ _id: doctorId }, { isApproved: true }).then(result => {
             return response.status(201).json(result);
         }).catch(err => {
             console.log(err);
-            return response.status(500).json({ error: 'Cannot Upload ExcelSheet' });
-        })
-    });
+            return response.status(201).json(result);
+        });
+    }
 
+    exports.RejectDoctor = (request, response) => {
+        let doctorId = request.body.doctorId;
+        doctorM.deleteOne({ _id: doctorId }).then(result => {
+            return response.status(201).json(result);
+        }).catch(err => {
+            console.log(err);
+            return response.status(201).json(result);
+        });
+
+        const filePath = 'doctorExcel.csv';
+        csv().fromFile(filePath).then(jsonObj => {
+            storedObj = jsonObj;
+            doctorM.create(storedObj).then(result => {
+                return response.status(201).json(result);
+            }).catch(err => {
+                console.log(err);
+                return response.status(500).json({ error: 'Cannot Upload ExcelSheet' });
+            })
+        });
+
+    }
 }

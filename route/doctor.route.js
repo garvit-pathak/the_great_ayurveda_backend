@@ -28,9 +28,9 @@ doctorRouter.post(
     doctorController.updateDoctor
 );
 
-doctorRouter.post("/excel",doctorController.ExcelUpload);
-doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
-doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
+// doctorRouter.post("/excel",doctorController.ExcelUpload);
+// doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
+// doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
 
 
 doctorRouter.post("/excel", doctorController.ExcelUpload);
