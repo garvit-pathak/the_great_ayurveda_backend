@@ -15,7 +15,7 @@ const upload = multer({ storage: storage });
 
 doctorRouter.post("/signin", doctorController.signin);
 doctorRouter.post("/add", upload.single("image"), doctorController.addDoctor);
-doctorRouter.post("/viewReviewbyDid",doctorController.ViewReviewByDid);
+doctorRouter.post("/viewReviewbyDid", doctorController.ViewReviewByDid);
 doctorRouter.post("/verifyDoctor", doctorController.verify);
 doctorRouter.post("/review", doctorController.review);
 doctorRouter.get("/viewAllDoctor", doctorController.viewAllDoctor);
@@ -28,17 +28,9 @@ doctorRouter.post(
     upload.single("image"),
     doctorController.updateDoctor
 );
-
-
-doctorRouter.post("/excel",doctorController.ExcelUpload);
-doctorRouter.post('/removereview',doctorController.RemoveReview);
-
-// doctorRouter.post("/excel",doctorController.ExcelUpload);
+doctorRouter.post("/excel", doctorController.ExcelUpload);
+doctorRouter.post('/removereview', doctorController.RemoveReview);
 // doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
 // doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
-
-
-
-doctorRouter.post("/excel", doctorController.ExcelUpload);
 
 module.exports = doctorRouter;
