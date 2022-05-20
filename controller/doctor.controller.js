@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const { Storage } = require("@google-cloud/storage");
 const requests = require("request");
 const jwt = require("jsonwebtoken");
+
+
 const csv = require('csvtojson');
 
 require('dotenv').config();
@@ -33,6 +35,7 @@ const uploadFile = async(filename) => {
 };
 
 exports.addDoctor = (request, response) => {
+
 
     let randomNumber = Math.floor(100000 + Math.random() * 900000);
     let m = request.body.mobile;
@@ -292,6 +295,15 @@ exports.updateDoctor = (request, response) => {
         });
 };
 
+exports.ViewReviewByDid=(request,response)=>{
+  doctorM.findOne({_id: request.body.dId}).populate({path: 'reviewerDetail.uId'})
+  .then((result)=>{
+      return response.status(200).json(result);
+  })
+  .catch((err)=>{
+    return response.status(500).json(err);
+  })
+}
 exports.signin = (request, response) => {
     var email = request.body.email;
     var p = request.body.password;
@@ -322,6 +334,18 @@ exports.signin = (request, response) => {
             return response.status(500).json({ message: "error" });
         });
 };
+
+
+exports.RemoveReview=async (request,response)=>{
+  let uId=request.body.uId;
+  // console.log(request.body.uId+" "+request.body.dId);
+  let doctor= await doctorM.findOne({_id:request.body.dId});
+  doctor.reviewerDetail.pull({_id:uId});
+  doctor.save().then(result=>{
+    console.log(result);
+  }).catch(err=>{
+    console.log(err);
+  })
 
 exports.ExcelUpload = (request, response) => {
 
@@ -357,4 +381,5 @@ exports.ExcelUpload = (request, response) => {
         });
 
     }
+
 }
