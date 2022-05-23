@@ -64,7 +64,7 @@ exports.payOnline = (request, response) => {
 exports.ViewPlacedOrder = (request, response) => {
 
     orderM
-        .findOne({ orderStatus: "ordered" })
+        .find({ orderStatus: "ordered" })
         .populate("userId")
         .populate({ path: "medicineList.product" })
         .then((result) => {
