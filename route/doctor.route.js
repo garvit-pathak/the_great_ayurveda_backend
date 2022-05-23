@@ -30,7 +30,8 @@ doctorRouter.post(
 );
 doctorRouter.post("/excel", doctorController.ExcelUpload);
 doctorRouter.post('/removereview', doctorController.RemoveReview);
-doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
-doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
+doctorRouter.post("/approvedoctor", doctorController.ApproveDoctor);
+doctorRouter.post("/rejectdoctor", doctorController.RejectDoctor);
+doctorRouter.post("/remove", doctorController.Remove);
 
 module.exports = doctorRouter;
