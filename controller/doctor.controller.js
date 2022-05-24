@@ -209,7 +209,7 @@ exports.updateDoctor = (request, response) => {
     let image;
     if (request.file) {
         image =
-            "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
+            "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" +
             request.file.filename +
             "?alt=media&token=image";
 
@@ -231,12 +231,6 @@ exports.updateDoctor = (request, response) => {
             $set: {
                 name: request.body.name,
                 email: request.body.email,
-                password: request.body.password,
-                mobile: request.body.mobile,
-                exprience: request.body.exprience,
-                degree: request.body.degree,
-                category: request.body.category,
-                otp: request.body.otp,
                 clinicName: request.body.clinicName,
                 clinicAddress: request.body.clinicAddress,
                 clinicNo: request.body.clinicNo,
@@ -244,10 +238,10 @@ exports.updateDoctor = (request, response) => {
             },
         })
         .then((result) => {
-            console.log(result);
             if (result.modifiedCount)
-                return response.status(200).json({ message: "update" });
-            else return response.status(201).json({ message: "not update" });
+                return response.status(200).json(result);
+            else
+                return response.status(201).json({ message: "not update" });
         })
         .catch((err) => {
             console.log(err);
