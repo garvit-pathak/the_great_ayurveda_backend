@@ -1,8 +1,7 @@
-
 const medicineM = require('../model/medicine.model');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
-const csv=require('csvtojson');
+const csv = require('csvtojson');
 
 let stored;
 
@@ -31,7 +30,7 @@ exports.Add = (request, response) => {
     let c = request.body.description;
     let d = request.body.stock;
     let e =
-    "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
+        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
     let f = request.body.keyword;
     let g = request.body.category;
     let precaution = request.body.precaution;
@@ -70,7 +69,7 @@ exports.Review = async(request, response) => {
 
     let review = await medicineM.findOne({ _id: pId });
     let he = {
-        _id: uId,
+        uId: uId,
         reviewText: reviewText,
     };
     review.reviewerDetail.push(he);
@@ -99,7 +98,7 @@ exports.ViewAll = (request, response) => {
 
 exports.ViewByProduct = (request, response) => {
     medicineM
-        .findOne({ _id: request.body.id })
+        .findOne({ _id: request.body.id }).populate({ path: "reviewerDetail.uId" })
         .then((result) => {
             return response.status(200).json(result);
         })
@@ -141,7 +140,7 @@ exports.Update = (request, response) => {
         let d = request.body.stock;
         let e =
 
-        "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/"+request.file.filename+"?alt=media&token=image";
+            "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" + request.file.filename + "?alt=media&token=image";
 
         let f = request.body.keyword;
         let g = request.body.category;
@@ -221,7 +220,7 @@ exports.viewByKeyword = (request, response) => {
 };
 
 
-exports.ExcelSave=(request,res)=>{
+exports.ExcelSave = (request, res) => {
     const csvFilePath = 'neckPainMed.csv';
 
     csv()
