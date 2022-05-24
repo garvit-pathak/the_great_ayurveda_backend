@@ -165,9 +165,9 @@ exports.viewOneDoctor = (request, response) => {
         });
 };
 
-exports.viewByKeyword = (request, response) => {
+exports.viewBySearch = (request, response) => {
     doctorM
-        .find({ keyword: { $regex: request.body.keyword, $options: "i" } })
+        .find({ speciality: { $regex: request.body.speciality, $options: "i" } })
         .then((result) => {
             console.log(result);
             return response.status(200).json(result);
