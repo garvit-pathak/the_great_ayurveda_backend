@@ -209,7 +209,9 @@ exports.updateDoctor = (request, response) => {
     let image;
     if (request.file) {
         image =
-            "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
+
+            "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" +
+
             request.file.filename +
             "?alt=media&token=image";
 
@@ -231,12 +233,14 @@ exports.updateDoctor = (request, response) => {
             $set: {
                 name: request.body.name,
                 email: request.body.email,
+
                 password: request.body.password,
                 mobile: request.body.mobile,
                 exprience: request.body.exprience,
                 degree: request.body.degree,
                 category: request.body.category,
                 otp: request.body.otp,
+
                 clinicName: request.body.clinicName,
                 clinicAddress: request.body.clinicAddress,
                 clinicNo: request.body.clinicNo,
@@ -244,10 +248,12 @@ exports.updateDoctor = (request, response) => {
             },
         })
         .then((result) => {
-            console.log(result);
+
             if (result.modifiedCount)
-                return response.status(200).json({ message: "update" });
-            else return response.status(201).json({ message: "not update" });
+                return response.status(200).json(result);
+            else
+                return response.status(201).json({ message: "not update" });
+
         })
         .catch((err) => {
             console.log(err);
@@ -260,14 +266,17 @@ exports.ViewReviewByDid = (request, response) => {
         .findOne({ _id: request.body.dId })
         .populate({ path: "reviewerDetail.uId" })
         .then((result) => {
+
             console.log(request.body);
             console.log('garvit' + result)
+
             return response.status(200).json(result);
         })
         .catch((err) => {
             return response.status(500).json(err);
         });
 };
+
 
 exports.ViewReview = (request, response) => {
     doctorM.find().populate('reviewerDetail.uId')
@@ -279,6 +288,7 @@ exports.ViewReview = (request, response) => {
             return response.status(500).json(err);
         });
 }
+
 exports.signin = (request, response) => {
     var email = request.body.email;
     var p = request.body.password;
@@ -369,4 +379,19 @@ exports.RejectDoctor = (request, response) => {
             console.log(err);
             return response.status(201).json(result);
         });
+
+};
+exports.Remove = (request, response) => {
+    console.log(request.body);
+    doctorM
+        .deleteOne({ _id: request.body.id })
+        .then((result) => {
+            console.log(result)
+            return response.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(500).json({ message: "Account Not Removed" });
+        });
+
 };
