@@ -25,7 +25,7 @@ doctorRouter.post('/removereview', doctorController.RemoveReview);
 doctorRouter.get("/viewAllDoctor", doctorController.viewAllDoctor);
 doctorRouter.post("/viewOneDoctor", doctorController.viewOneDoctor);
 doctorRouter.post("/viewByCat", doctorController.viewByCat);
-doctorRouter.post("/viewByKeyword", doctorController.viewByKeyword);
+doctorRouter.post("/viewBySearch", doctorController.viewBySearch);
 
 doctorRouter.post("/deleteDoctor", doctorController.deleteDoctor);
 doctorRouter.post(
@@ -39,9 +39,7 @@ doctorRouter.post("/rejectdoctor", doctorController.RejectDoctor);
 
 doctorRouter.post("/excel", doctorController.ExcelUpload);
 
-doctorRouter.post('/removereview', doctorController.RemoveReview);
-doctorRouter.post("/approvedoctor", doctorController.ApproveDoctor);
-doctorRouter.post("/rejectdoctor", doctorController.RejectDoctor);
+
 doctorRouter.post("/remove", doctorController.Remove);
 
 
