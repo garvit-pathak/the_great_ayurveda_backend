@@ -76,6 +76,17 @@ exports.ViewPlacedOrder = (request, response) => {
         });
 
 };
+exports.viewOrderByUserId = (request, response) => {
+    orderM.findOne({ userId: request.body.id }).populate({ path: "medicineList.product" })
+        .then(result => {
+            console.log(result);
+            return response.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            return response.status(500).json({ message: "Error" })
+        })
+}
 
 exports.DeliveryStatusUpdate = (request, response) => {
     console.log(request.body);

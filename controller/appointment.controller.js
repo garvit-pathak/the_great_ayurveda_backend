@@ -199,3 +199,15 @@ exports.cancleApppoinment = (request, response) => {
             return response.status(500).json({ message: "error" });
         });
 };
+exports.viewAppointmentByUid = (request, response) => {
+    appointmentM
+        .find({ userId: request.body.uId }).populate('doctor')
+        .then((result) => {
+            console.log(result);
+            return response.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(500).json({ message: "Error...." });
+        });
+};
