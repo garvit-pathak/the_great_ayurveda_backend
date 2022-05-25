@@ -67,3 +67,13 @@ exports.Check = (request, response) => {
       return response.status(500).json({ error: "Not Resolved" });
     });
 };
+
+exports.View=(request,response)=>{
+  queryM.find().then(result=>{
+    return response.status(200).json(result);
+    
+  }).catch(err=>{
+    console.log(err);
+    return response.status(500).json({error:'Cannot Fetch data'});
+  })
+}

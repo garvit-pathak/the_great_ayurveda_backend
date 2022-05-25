@@ -214,13 +214,11 @@ exports.Search = (request, response) => {
 
 
 exports.ExcelUpload = (request, response) => {
-    const filePath = 'diseaseExcel.csv';
+    const filePath = 'finalHairDiseaseLast.csv';
     let storedObj;
     csv().fromFile(filePath).then(jsonObj => {
         storedObj = jsonObj;
-        console.log(jsonObj);
         for (let obj of jsonObj) {
-            //console.log(obj);
             let medicines = obj.mId;
             let disease = new diseaseM();
             disease.name = obj.name;
