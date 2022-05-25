@@ -13,24 +13,34 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-doctorRouter.post("/signin", doctorController.signin);
 doctorRouter.post("/add", upload.single("image"), doctorController.addDoctor);
-doctorRouter.post("/viewReviewbyDid", doctorController.ViewReviewByDid);
 doctorRouter.post("/verifyDoctor", doctorController.verify);
+doctorRouter.post("/signin", doctorController.signin);
+
 doctorRouter.post("/review", doctorController.review);
+doctorRouter.post("/viewReviewbyDid", doctorController.ViewReviewByDid);
+doctorRouter.get("/viewAllReview", doctorController.ViewReview);
+doctorRouter.post('/removereview', doctorController.RemoveReview);
+
 doctorRouter.get("/viewAllDoctor", doctorController.viewAllDoctor);
 doctorRouter.post("/viewOneDoctor", doctorController.viewOneDoctor);
-doctorRouter.post("/viewByKeyword", doctorController.viewByKeyword);
 doctorRouter.post("/viewByCat", doctorController.viewByCat);
+doctorRouter.post("/viewBySearch", doctorController.viewBySearch);
+
 doctorRouter.post("/deleteDoctor", doctorController.deleteDoctor);
 doctorRouter.post(
     "/updateDoctor",
     upload.single("image"),
     doctorController.updateDoctor
 );
+
+doctorRouter.post("/approvedoctor", doctorController.ApproveDoctor);
+doctorRouter.post("/rejectdoctor", doctorController.RejectDoctor);
+
 doctorRouter.post("/excel", doctorController.ExcelUpload);
-doctorRouter.post('/removereview', doctorController.RemoveReview);
-doctorRouter.post("/approvedoctor",doctorController.ApproveDoctor);
-doctorRouter.post("/rejectdoctor",doctorController.RejectDoctor);
+
+
+doctorRouter.post("/remove", doctorController.Remove);
+
 
 module.exports = doctorRouter;

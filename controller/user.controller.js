@@ -11,8 +11,8 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 const { Storage } = require("@google-cloud/storage");
-let bucketName = "gs://app-project-ayurveda2.appspot.com";
-
+// let bucketName = "gs://app-project-ayurveda2.appspot.com";
+let bucketName = "gs://app-project-ayurveda2.appspot.com"
 const storage = new Storage({
     keyFilename: "serviceFirebaseStorage.json",
 });
@@ -203,10 +203,9 @@ exports.updateUser = (request, response) => {
     let image;
     if (request.file) {
         image =
-            "https://firebasestorage.googleapis.com/v0/b/ayurveda-d6cac.appspot.com/o/" +
+            "https://firebasestorage.googleapis.com/v0/b/app-project-ayurveda2.appspot.com/o/" +
             request.file.filename +
             "?alt=media&token=image";
-
         uploadFile(
             path.join(__dirname, "../", "public/images/") + request.file.filename
         );
@@ -231,7 +230,7 @@ exports.updateUser = (request, response) => {
         .then((result) => {
             console.log(result);
             if (result.modifiedCount)
-                return response.status(200).json({ message: "update" });
+                return response.status(200).json(result);
             else
                 return response.status(201).json({ message: "not update" });
         })

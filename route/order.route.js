@@ -6,6 +6,7 @@ const orderRouter = express.Router();
 orderRouter.post("/create", orderControl.create);
 
 orderRouter.get("/vieworder", orderControl.ViewPlacedOrder);
+orderRouter.post("/viewOrderByUserId", orderControl.viewOrderByUserId);
 orderRouter.post("/deliverystatus", orderControl.DeliveryStatusUpdate);
 orderRouter.post("/place", orderControl.place);
 orderRouter.post("/trackorder", orderControl.TrackOrder);

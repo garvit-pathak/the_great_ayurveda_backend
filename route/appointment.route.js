@@ -21,5 +21,5 @@ appointmentRouter.get(
 appointmentRouter.post("/acceptAppointment", appointmentController.acceptAppointment);
 appointmentRouter.post("/cancleAppointment", appointmentController.cancleApppoinment);
 appointmentRouter.post("/viewAppoimentByDid", appointmentController.viewAppointmentByDid);
-
+appointmentRouter.post("/viewAppoimentByUid", appointmentController.viewAppointmentByUid);
 module.exports = appointmentRouter;
