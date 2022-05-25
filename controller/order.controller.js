@@ -8,6 +8,12 @@ const rzp = new Razorpay({
 
 
 exports.place = (request, response) => {
+        let date = new Date();
+        let b = date.getDate();
+        let c = date.getMonth() + 1;
+        let d = date.getFullYear();
+        let currentDate = b + '/' + c + '/' + d
+        console.log(currentDate);
         console.log(request.body);
         let medicineList = request.body.medicineList;
         orderM.create({
@@ -16,6 +22,7 @@ exports.place = (request, response) => {
             mobile: request.body.mobile,
             address: request.body.address,
             amount: request.body.amount,
+            date: currentDate,
             orderStatus: 'ordered'
         }).then(result => {
             console.log(result);
@@ -25,6 +32,12 @@ exports.place = (request, response) => {
     }
     //
 exports.create = (request, response) => {
+    let date = new Date();
+    let b = date.getDate();
+    let c = date.getMonth() + 1;
+    let d = date.getFullYear();
+    let currentDate = b + '/' + c + '/' + d
+    console.log(currentDate);
     console.log(request.body)
     console.log(request.body.order.medicineList);
     orderM.create({
@@ -33,6 +46,7 @@ exports.create = (request, response) => {
         mobile: request.body.order.mobile,
         address: request.body.order.address,
         amount: request.body.order.amount * 1,
+        date: currentDate,
         orderStatus: 'ordered'
 
     }).then(result => {
@@ -77,7 +91,7 @@ exports.ViewPlacedOrder = (request, response) => {
 
 };
 exports.viewOrderByUserId = (request, response) => {
-    orderM.findOne({ userId: request.body.id }).populate({ path: "medicineList.product" })
+    orderM.find({ userId: request.body.id }).populate({ path: "medicineList.product" })
         .then(result => {
             console.log(result);
             return response.status(200).json(result);

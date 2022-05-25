@@ -20,8 +20,8 @@ const orderSchema = new mongoose.Schema({
         },
     }, ],
     date: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        // default: Date.now,
     },
     mobile: {
         type: String,

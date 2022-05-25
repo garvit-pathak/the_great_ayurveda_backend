@@ -19,6 +19,7 @@ exports.SendQuery = (request, response) => {
     queryM
         .create({ email: request.body.email, query: request.body.query })
         .then((result) => {
+            console.log(result)
             transporter.sendMail(mailOptions, function(error, info) {
                 if (error) {
                     console.log(error);
