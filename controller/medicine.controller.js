@@ -86,7 +86,7 @@ exports.Review = async(request, response) => {
 
 exports.ViewAll = (request, response) => {
     medicineM
-        .find()
+        .find().populate("category")
         .then((result) => {
             return response.status(200).json(result);
         })
@@ -220,8 +220,9 @@ exports.viewByKeyword = (request, response) => {
 };
 
 
-exports.ExcelSave = (request, res) => {
-    const csvFilePath = 'neckPainMed.csv';
+exports.ExcelSave=(request,res)=>{
+    const csvFilePath = 'finalMedsOfHair.csv';
+
 
     csv()
         .fromFile(csvFilePath)

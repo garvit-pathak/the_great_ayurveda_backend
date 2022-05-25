@@ -48,20 +48,31 @@ exports.Resolve = (request, response) => {
 };
 
 exports.Check = (request, response) => {
-    queryM
-        .findOne({ _id: request.body.id })
-        .then((result) => {
-            console.log(result);
-            console.log(result.status);
-            if (result.status == "Resolved") {
-                console.log("inside if");
-                return response.status(200).json(result);
-            } else {
-                return response.status(404).json({ message: "Query not resolved" });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            return response.status(500).json({ error: "Not Resolved" });
-        });
+
+  queryM
+    .findOne({ _id: request.body.id })
+    .then((result) => {
+      console.log(result);
+      console.log(result.status);
+      if (result.status == "Resolved") {
+        console.log("inside if");
+        return response.status(200).json(result);
+      } else {
+        return response.status(404).json({ message: "Query not resolved" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return response.status(500).json({ error: "Not Resolved" });
+    });
+};
+
+exports.View=(request,response)=>{
+  queryM.find().then(result=>{
+    return response.status(200).json(result);
+    
+  }).catch(err=>{
+    console.log(err);
+    return response.status(500).json({error:'Cannot Fetch data'});
+  })
 };
