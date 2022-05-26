@@ -98,7 +98,6 @@ exports.verify = (request, response) => {
     doctorM
         .updateOne({ _id: request.body.id, otp: request.body.otp }, { $set: { isverfied: true } })
         .then((result) => {
-            console.log(result);
             if (result.matchedCount && result.modifiedCount) {
                 return response
                     .status(201)
@@ -116,7 +115,6 @@ exports.verify = (request, response) => {
 };
 
 exports.review = async(request, response) => {
-    console.log(request.body);
     let uId = request.body.uId;
     let dId = request.body.dId;
     let reviewText = request.body.reviewText;
@@ -142,7 +140,6 @@ exports.viewAllDoctor = (request, response) => {
     doctorM
         .find()
         .then((result) => {
-            console.log(result);
             return response.status(200).json(result);
         })
         .catch((err) => {
@@ -267,8 +264,7 @@ exports.ViewReviewByDid = (request, response) => {
         .populate({ path: "reviewerDetail.uId" })
         .then((result) => {
 
-            console.log(request.body);
-            console.log('garvit' + result)
+            
 
             return response.status(200).json(result);
         })
@@ -281,7 +277,6 @@ exports.ViewReviewByDid = (request, response) => {
 exports.ViewReview = (request, response) => {
     doctorM.find().populate('reviewerDetail.uId')
         .then((result) => {
-            console.log(result)
             return response.status(200).json(result);
         })
         .catch((err) => {
@@ -328,7 +323,6 @@ exports.RemoveReview = async(request, response) => {
     doctor
         .save()
         .then((result) => {
-            console.log(result);
         })
         .catch((err) => {
             console.log(err);
@@ -386,7 +380,6 @@ exports.Remove = (request, response) => {
     doctorM
         .deleteOne({ _id: request.body.id })
         .then((result) => {
-            console.log(result)
             return response.status(200).json(result);
         })
         .catch((err) => {
