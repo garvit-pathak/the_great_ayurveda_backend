@@ -67,7 +67,7 @@ const doctorSchema = new mongoose.Schema({
     },
     speciality: {
         type: String,
-        // required: true
+        required: true
     },
     reviewerDetail: [{
         uId: { type: Schema.Types.ObjectId, ref: "users" },

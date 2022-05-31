@@ -264,7 +264,7 @@ exports.ViewReviewByDid = (request, response) => {
         .populate({ path: "reviewerDetail.uId" })
         .then((result) => {
 
-            
+
 
             return response.status(200).json(result);
         })
@@ -322,8 +322,7 @@ exports.RemoveReview = async(request, response) => {
     doctor.reviewerDetail.pull({ _id: uId });
     doctor
         .save()
-        .then((result) => {
-        })
+        .then((result) => {})
         .catch((err) => {
             console.log(err);
         });
