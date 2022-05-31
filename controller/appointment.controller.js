@@ -107,7 +107,7 @@ exports.DoctorResponseReject = (request, response) => {
         });
 };
 
-
+//tanu
 exports.viewAppointmentByDid = (request, response) => {
     console.log(request.body)
     var temp = [];
