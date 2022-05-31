@@ -55,6 +55,18 @@ exports.BookAppointment = (request, response) => {
             return response.status(500).json({ message: "something went wrong" });
         });
 };
+exports.viewAppointmentByUid = (request, response) => {
+    appointmentM
+        .find({ userId: request.body.uId }).populate('doctor')
+        .then((result) => {
+            console.log(result);
+            return response.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(500).json({ message: "Error...." });
+        });
+};
 
 exports.DoctorResponseAccept = (request, response) => {
     appointmentM
@@ -73,18 +85,6 @@ exports.DoctorResponseAccept = (request, response) => {
         .catch((err) => {
             console.log(err);
             return response.status(500).json({ error: "Not Updated" });
-        });
-};
-
-exports.ViewAppointment = (request, response) => {
-    appointmentM
-        .find()
-        .then((result) => {
-            return response.status(201).json(result);
-        })
-        .catch((err) => {
-            console.log(err);
-            return response.status(500).json({ error: "Cannot fetch data" });
         });
 };
 exports.DoctorResponseReject = (request, response) => {
@@ -106,16 +106,63 @@ exports.DoctorResponseReject = (request, response) => {
             return response.status(500).json({ error: "Not Updated" });
         });
 };
+
+//tanu
 exports.viewAppointmentByDid = (request, response) => {
+    console.log(request.body)
+    var temp = [];
+    var k = 0;
+    var status = false;
     appointmentM
         .find({ doctor: request.body.dId })
         .then((result) => {
-            console.log(result);
-            return response.status(200).json(result);
+            for (var i = 0; i < result.length; i++) {
+                if (result[i].apointmentStatus == "Accepted") {
+                    temp[k++] = result[i];
+                    status = true;
+                }
+            }
+            console.log(temp);
+            return response.status(200).json(temp);
         })
         .catch((err) => {
             console.log(err);
             return response.status(500).json({ message: "Error...." });
+        });
+};
+
+exports.viewAppointmentByDidPending = (request, response) => {
+    console.log(request.body)
+    var temp = [];
+    var k = 0;
+    var status = false;
+    appointmentM
+        .find({ doctor: request.body.dId })
+        .then((result) => {
+            console.log(result)
+            for (var i = 0; i < result.length; i++) {
+                if (result[i].apointmentStatus == "pending") {
+                    temp[k++] = result[i];
+                }
+            }
+            console.log(temp);
+            return response.status(200).json(temp);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(500).json({ message: "Error...." });
+        });
+};
+
+exports.ViewAppointment = (request, response) => {
+    appointmentM
+        .find()
+        .then((result) => {
+            return response.status(201).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            return response.status(500).json({ error: "Cannot fetch data" });
         });
 };
 
@@ -197,17 +244,5 @@ exports.cancleApppoinment = (request, response) => {
         .catch((err) => {
             console.log(err);
             return response.status(500).json({ message: "error" });
-        });
-};
-exports.viewAppointmentByUid = (request, response) => {
-    appointmentM
-        .find({ userId: request.body.uId }).populate('doctor')
-        .then((result) => {
-            console.log(result);
-            return response.status(200).json(result);
-        })
-        .catch((err) => {
-            console.log(err);
-            return response.status(500).json({ message: "Error...." });
         });
 };
