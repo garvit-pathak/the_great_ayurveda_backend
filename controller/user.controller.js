@@ -69,7 +69,7 @@ exports.SignUp = (request, response) => {
             client.messages
                 .create({
                     body: "Hello " + a + " your otp for The Great Ayurveda is" + " " + randomNumber,
-                    from: +16105802420,
+                    from: +12057821193,
                     to: +91 + d
                 })
                 .then(message => console.log(message.sid)).catch(err => {
