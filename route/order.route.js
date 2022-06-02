@@ -1,6 +1,6 @@
 const express = require("express");
 const orderControl = require("../controller/order.controller");
-
+const tokenVerify = require("../middleware/authVerify")
 const orderRouter = express.Router();
 
 orderRouter.post("/create", orderControl.create);
@@ -11,7 +11,7 @@ orderRouter.post("/deliverystatus", orderControl.DeliveryStatusUpdate);
 orderRouter.post("/place", orderControl.place);
 orderRouter.post("/trackorder", orderControl.TrackOrder);
 orderRouter.post("/cancelorder", orderControl.CancelOrder);
-orderRouter.post("/create", orderControl.create);
+// orderRouter.post("/create", orderControl.create);
 
 
 orderRouter.post("/payment", orderControl.payOnline);

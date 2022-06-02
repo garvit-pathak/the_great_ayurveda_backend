@@ -40,7 +40,7 @@ exports.BookAppointment = (request, response) => {
                         patientName +
                         " your request for appointment has been The Great Ayurveda team will soon contact you " +
                         currentDate,
-                    from: +16105802420,
+                    from: +12057821193,
                     to: +91 + mobile,
                 })
 
@@ -190,7 +190,7 @@ exports.acceptAppointment = (request, response) => {
                                     "and time:" +
                                     time +
                                     "soon later..",
-                                from: +16105802420,
+                                from: +12057821193,
                                 to: +91 + mobile,
                             })
 
@@ -225,7 +225,7 @@ exports.cancleApppoinment = (request, response) => {
                         client.messages
                             .create({
                                 body: "Hello " + resultuser.name + " sorry I am not accepted your ",
-                                from: +16105802420,
+                                from: +12057821193,
                                 to: +91 + mobile,
                             })
 

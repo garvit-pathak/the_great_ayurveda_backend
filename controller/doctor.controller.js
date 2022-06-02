@@ -80,7 +80,7 @@ exports.addDoctor = (request, response) => {
                         " your otp for The Great Ayurveda is" +
                         " " +
                         randomNumber,
-                    from: +16105802420,
+                    from: +12057821193,
                     to: +91 + m,
                 })
                 .then((message) => console.log(message.sid))
