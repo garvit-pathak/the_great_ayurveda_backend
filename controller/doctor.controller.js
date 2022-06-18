@@ -138,7 +138,7 @@ exports.review = async(request, response) => {
 
 exports.viewAllDoctor = (request, response) => {
     doctorM
-        .find()
+        .find({ isApproved: true })
         .then((result) => {
             return response.status(200).json(result);
         })
